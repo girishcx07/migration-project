@@ -285,4 +285,5 @@ The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-ap
 
 A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
 #   m o n o r e p o - s e t u p  
+ #   s h a d c n - b a s e - m o n o r e p o - s e t u p  
  
