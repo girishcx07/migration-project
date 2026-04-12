@@ -18,12 +18,8 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@acme/auth": "workspace:*",
-    "@acme/db": "workspace:*",
-    "@acme/validators": "workspace:*",
     "@trpc/server": "catalog:",
-    "superjson": "2.2.3",
-    "zod": "catalog:"
+    "superjson": "catalog:"
   },
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",

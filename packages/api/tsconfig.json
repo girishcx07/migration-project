@@ -1,5 +1,8 @@
 {
   "extends": "@acme/tsconfig/compiled-package.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "dom", "dom.iterable"]
+  },
   "include": ["src"],
   "exclude": ["node_modules"]
 }

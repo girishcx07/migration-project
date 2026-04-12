@@ -1,33 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Space_Grotesk } from "next/font/google";
 
-import { cn } from "@acme/ui";
-import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
-import { Toaster } from "@acme/ui/toast";
-
-import { env } from "~/env";
-import { TRPCReactProvider } from "~/trpc/react";
+import { ThemeHotkey, ThemeProvider } from "@acme/ui/components/theme";
+import { Toaster } from "@acme/ui/components/toast";
+import { cn } from "@acme/ui/lib/utils";
 
 import "~/app/styles.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    env.VERCEL_ENV === "production"
-      ? "https://turbo.t3.gg"
-      : "http://localhost:3000",
-  ),
-  title: "Create T3 Turbo",
-  description: "Simple monorepo with shared backend for web & mobile apps",
+  metadataBase: new URL("http://localhost:3000"),
+  title: "Next.js Template",
+  description: "Plain Next.js app template",
   openGraph: {
-    title: "Create T3 Turbo",
-    description: "Simple monorepo with shared backend for web & mobile apps",
-    url: "https://create-t3-turbo.vercel.app",
-    siteName: "Create T3 Turbo",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
+    title: "Next.js Template",
+    description: "Plain Next.js app template",
+    url: "http://localhost:3000",
+    siteName: "Next.js Template",
   },
 };
 
@@ -38,13 +26,14 @@ export const viewport: Viewport = {
   ],
 };
 
-const geistSans = Geist({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
 });
-const geistMono = Geist_Mono({
+
+const fontMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
 });
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -52,17 +41,16 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "bg-background text-foreground min-h-screen font-sans antialiased",
-          geistSans.variable,
-          geistMono.variable,
+          "antialiased",
+          fontMono.variable,
+          "font-sans",
+          spaceGrotesk.variable,
         )}
       >
         <ThemeProvider>
-          <TRPCReactProvider>{props.children}</TRPCReactProvider>
-          <div className="absolute right-4 bottom-4">
-            <ThemeToggle />
-          </div>
+          {props.children}
           <Toaster />
+          <ThemeHotkey />
         </ThemeProvider>
       </body>
     </html>

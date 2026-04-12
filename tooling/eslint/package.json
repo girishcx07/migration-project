@@ -13,15 +13,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@eslint/compat": "^1.4.0",
+    "@eslint/compat": "catalog:",
     "@eslint/js": "catalog:",
-    "@next/eslint-plugin-next": "^16.0.0",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-turbo": "^2.5.8",
-    "typescript-eslint": "^8.46.2"
+    "@next/eslint-plugin-next": "catalog:",
+    "eslint-plugin-import": "catalog:",
+    "eslint-plugin-jsx-a11y": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-turbo": "catalog:",
+    "typescript-eslint": "catalog:"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:*",

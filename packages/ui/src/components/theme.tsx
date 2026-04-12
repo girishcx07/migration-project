@@ -1,16 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { DesktopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import * as z from "zod/v4";
-
-import { Button } from "./button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./dropdown-menu";
 
 const ThemeModeSchema = z.enum(["light", "dark", "auto"]);
 
@@ -151,34 +142,49 @@ export function useTheme() {
   return context;
 }
 
-export function ThemeToggle() {
-  const { setTheme } = useTheme();
+function isTypingTarget(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="[&>svg]:absolute [&>svg]:size-5 [&>svg]:scale-0"
-        >
-          <SunIcon className="light:scale-100! auto:scale-0!" />
-          <MoonIcon className="auto:scale-0! dark:scale-100!" />
-          <DesktopIcon className="auto:scale-100!" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("auto")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    target.isContentEditable ||
+    target.tagName === "INPUT" ||
+    target.tagName === "TEXTAREA" ||
+    target.tagName === "SELECT"
   );
+}
+
+export function ThemeHotkey() {
+  const { resolvedTheme, setTheme } = useTheme();
+
+  React.useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.defaultPrevented || event.repeat) {
+        return;
+      }
+
+      if (event.metaKey || event.ctrlKey || event.altKey) {
+        return;
+      }
+
+      if (event.key.toLowerCase() !== "d") {
+        return;
+      }
+
+      if (isTypingTarget(event.target)) {
+        return;
+      }
+
+      setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [resolvedTheme, setTheme]);
+
+  return null;
 }

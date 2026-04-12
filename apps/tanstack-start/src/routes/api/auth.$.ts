@@ -1,12 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { auth } from "~/auth/server";
-
 export const Route = createFileRoute("/api/auth/$")({
   server: {
     handlers: {
-      GET: ({ request }) => auth.handler(request),
-      POST: ({ request }) => auth.handler(request),
+      GET: () =>
+        Response.json(
+          { message: "Auth is not enabled in this template." },
+          { status: 404 },
+        ),
+      POST: () =>
+        Response.json(
+          { message: "Auth is not enabled in this template." },
+          { status: 404 },
+        ),
     },
   },
 });

@@ -1,4 +1,7 @@
-import { auth } from "~/auth/server";
+const handler = () =>
+  Response.json(
+    { message: "Auth is not enabled in this template." },
+    { status: 404 },
+  );
 
-export const GET = auth.handler;
-export const POST = auth.handler;
+export { handler as GET, handler as POST };
