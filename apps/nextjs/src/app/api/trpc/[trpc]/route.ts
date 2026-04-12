@@ -13,7 +13,7 @@ export const OPTIONS = () => {
   return response;
 };
 
-const handler = async () => {
+const handler = () => {
   const response = Response.json({
     message: "tRPC is not enabled in this template.",
   });
