@@ -6,8 +6,10 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+
+import { Auth as AuthSession } from "@acme/validators/auth";
 
 /**
  * 1. CONTEXT
@@ -22,9 +24,13 @@ import superjson from "superjson";
  * @see https://trpc.io/docs/server/context
  */
 
-export const createTRPCContext = (opts: { headers: Headers }) => {
+export const createTRPCContext = (opts: {
+  headers: Headers;
+  session: AuthSession | null;
+}) => {
   return {
     headers: opts.headers,
+    session: opts.session,
   };
 };
 /**
@@ -81,3 +87,28 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * can still access user session data if they are logged in
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+/**
+ * Protected (authenticated) procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
+ * the session is valid and guarantees `ctx.session.user` is not null.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const protectedProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    if (!ctx.session) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    const session = ctx.session;
+
+    return next({
+      ctx: {
+        session: {
+          ...session,
+        },
+      },
+    });
+  });

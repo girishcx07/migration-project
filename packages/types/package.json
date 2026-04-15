@@ -1,5 +1,6 @@
 {
-  "name": "@acme/validators",
+  "name": "@acme/types",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -9,25 +10,22 @@
     },
     "./*": {
       "types": "./dist/*.d.ts",
-      "default": "./src/*.ts"
+      "default": "./src/*.d.ts"
     }
   },
-  "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "tsc",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
-  },
-  "dependencies": {
-    "zod": "catalog:"
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",
     "@acme/prettier-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
+    "@types/react": "catalog:react19",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"

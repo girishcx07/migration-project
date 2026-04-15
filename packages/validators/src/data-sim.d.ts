@@ -1,0 +1,71 @@
+import { z } from "zod";
+export declare const countryRegionSchema: z.ZodObject<{
+    id: z.ZodOptional<z.ZodNumber>;
+    name: z.ZodString;
+    iso2: z.ZodString;
+    iso3: z.ZodString;
+    image: z.ZodOptional<z.ZodString>;
+    is_region: z.ZodOptional<z.ZodBoolean>;
+}, z.core.$strip>;
+export declare const getEsimOffersPayloadSchema: z.ZodObject<{
+    selected_country_region: z.ZodObject<{
+        id: z.ZodOptional<z.ZodNumber>;
+        name: z.ZodString;
+        iso2: z.ZodString;
+        iso3: z.ZodString;
+        image: z.ZodOptional<z.ZodString>;
+        is_region: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strip>;
+    nationality: z.ZodObject<{
+        id: z.ZodOptional<z.ZodNumber>;
+        name: z.ZodString;
+        iso2: z.ZodString;
+        iso3: z.ZodString;
+        image: z.ZodOptional<z.ZodString>;
+        is_region: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strip>;
+}, z.core.$strip>;
+export declare const userPersonalDetailSchema: z.ZodObject<{
+    first_name: z.ZodString;
+    last_name: z.ZodString;
+    email: z.ZodString;
+    phone_number: z.ZodString;
+    address: z.ZodString;
+}, z.core.$strip>;
+export declare const createApplicationSchema: z.ZodObject<{
+    first_name: z.ZodString;
+    last_name: z.ZodString;
+    email: z.ZodString;
+    phone_number: z.ZodString;
+    address: z.ZodString;
+    packages: z.ZodArray<z.ZodUnknown>;
+    nationality: z.ZodString;
+    nationality_data: z.ZodObject<{
+        id: z.ZodOptional<z.ZodNumber>;
+        name: z.ZodString;
+        iso2: z.ZodString;
+        iso3: z.ZodString;
+        image: z.ZodOptional<z.ZodString>;
+        is_region: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strip>;
+    destination_data: z.ZodObject<{
+        id: z.ZodOptional<z.ZodNumber>;
+        name: z.ZodString;
+        iso2: z.ZodString;
+        iso3: z.ZodString;
+        image: z.ZodOptional<z.ZodString>;
+        is_region: z.ZodOptional<z.ZodBoolean>;
+    }, z.core.$strip>;
+    nationality_name: z.ZodString;
+    destination_name: z.ZodString;
+    journey_start_date: z.ZodString;
+    journey_end_date: z.ZodString;
+    destination: z.ZodString;
+    is_destination_a_region: z.ZodBoolean;
+    is_kyc_required: z.ZodOptional<z.ZodBoolean>;
+    passport: z.ZodOptional<z.ZodFile>;
+}, z.core.$strip>;
+export declare const searchRaffApplicationPayloadSchema: z.ZodObject<{
+    search_text: z.ZodString;
+}, z.core.$strip>;
+//# sourceMappingURL=data-sim.d.ts.map

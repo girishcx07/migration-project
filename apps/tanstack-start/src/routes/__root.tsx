@@ -1,21 +1,32 @@
 /// <reference types="vite/client" />
+import type { QueryClient } from "@tanstack/react-query";
+import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import type * as React from "react";
+import appCss from "@/styles.css?url";
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   HeadContent,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
+import type { AppRouter } from "@acme/api";
 import { ThemeHotkey, ThemeProvider } from "@acme/ui/components/theme";
 import { Toaster } from "@acme/ui/components/toast";
 
-import appCss from "~/styles.css?url";
-
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+  trpc: TRPCOptionsProxy<AppRouter>;
+}>()({
   head: () => ({
     links: [{ rel: "stylesheet", href: appCss }],
+    meta: [
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1.0",
+      },
+    ],
   }),
   component: RootComponent,
 });
