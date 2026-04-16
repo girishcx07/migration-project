@@ -13,10 +13,18 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "@acme/api": "workspace:*",
     "@acme/ui": "workspace:*",
+    "@acme/validators": "workspace:*",
+    "@t3-oss/env-nextjs": "^0.13.11",
+    "@tanstack/react-query": "catalog:",
+    "@trpc/server": "catalog:",
+    "@trpc/tanstack-react-query": "catalog:",
     "next": "catalog:",
     "react": "catalog:react19",
-    "react-dom": "catalog:react19"
+    "react-dom": "catalog:react19",
+    "superjson": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",

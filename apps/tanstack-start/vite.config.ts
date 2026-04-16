@@ -7,7 +7,11 @@ import { defineConfig } from "vite";
 // import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
+    forwardConsole: true,
     port: 3001,
   },
   plugins: [

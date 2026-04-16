@@ -1,3 +1,13 @@
+import type { NextRequest } from "next/server";
+import { getUserSession } from "@/auth/server";
+import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+
+import { appRouter, createTRPCContext } from "@acme/api";
+
+/**
+ * Configure basic CORS headers
+ * You should extend this to match your needs
+ */
 const setCorsHeaders = (res: Response) => {
   res.headers.set("Access-Control-Allow-Origin", "*");
   res.headers.set("Access-Control-Request-Method", "*");
@@ -13,9 +23,19 @@ export const OPTIONS = () => {
   return response;
 };
 
-const handler = () => {
-  const response = Response.json({
-    message: "tRPC is not enabled in this template.",
+const handler = async (req: NextRequest) => {
+  const response = await fetchRequestHandler({
+    endpoint: "/api/trpc",
+    router: appRouter,
+    req,
+    createContext: async () =>
+      createTRPCContext({
+        headers: req.headers,
+        session: await getUserSession(req),
+      }),
+    onError({ error, path }) {
+      console.error(`>>> tRPC Error on '${path}'`, error);
+    },
   });
 
   setCorsHeaders(response);

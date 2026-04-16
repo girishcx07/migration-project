@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Space_Grotesk } from "next/font/google";
+import { TRPCReactProvider } from "@/trpc/react";
 
 import { ThemeHotkey, ThemeProvider } from "@acme/ui/components/theme";
 import { Toaster } from "@acme/ui/components/toast";
 import { cn } from "@acme/ui/lib/utils";
 
-import "~/app/styles.css";
+import "@/app/styles.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
@@ -48,7 +49,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider>
-          {props.children}
+          <TRPCReactProvider>{props.children}</TRPCReactProvider>
           <Toaster />
           <ThemeHotkey />
         </ThemeProvider>

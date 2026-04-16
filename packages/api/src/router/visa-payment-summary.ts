@@ -12,7 +12,7 @@ import type {
   UpdatePaymentProcessingStatusResponse,
   UpdateUserDetailsResponse,
   VerifyOtpForAnonymousUserResponse,
-} from "@repo/types/payment-summary";
+} from "@acme/types/payment-summary";
 import type { TRPCRouterRecord } from "@trpc/server";
 import * as z from "zod";
 

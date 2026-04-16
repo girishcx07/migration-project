@@ -18,7 +18,7 @@
     "@acme/validators": "workspace:*",
     "@fontsource-variable/geist-mono": "catalog:",
     "@fontsource-variable/space-grotesk": "catalog:",
-    "@t3-oss/env-core": "catalog:",
+    "@t3-oss/env-core": "^0.13.11",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-router-devtools": "catalog:",
