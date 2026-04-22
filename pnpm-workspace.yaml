@@ -4,32 +4,31 @@ packages:
   - tooling/*
 
 catalog:
-  "@base-ui/react": ^1.3.0
-  "@eslint/compat": ^2.0.3
-  "@eslint/js": ^9.38.0
-  "@fontsource-variable/geist": ^5.2.8
-  "@fontsource-variable/geist-mono": ^5.2.7
-  "@fontsource-variable/space-grotesk": ^5.2.8
-  "@hookform/resolvers": ^5.2.2
-  "@ianvs/prettier-plugin-sort-imports": ^4.7.1
-  "@next/eslint-plugin-next": ^16.2.1
-  "@radix-ui/react-icons": ^1.3.2
-  "@t3-oss/env-core": ^0.13.11
-  "@t3-oss/env-nextjs": ^0.13.11
-  "@tailwindcss/postcss": ^4.2.2
-  "@tailwindcss/vite": ^4.2.2
-  "@tanstack/react-form": ^1.28.6
-  "@tanstack/react-query": ^5.96.0
-  "@tanstack/react-router": ^1.168.10
-  "@tanstack/react-router-devtools": ^1.166.11
-  "@tanstack/react-router-ssr-query": ^1.166.10
-  "@tanstack/react-start": ^1.167.16
-  "@trpc/client": ^11.16.0
-  "@trpc/server": ^11.16.0
-  "@trpc/tanstack-react-query": ^11.16.0
-  "@turbo/gen": ^2.5.8
-  "@types/node": ^25.5.0
-  "@vitejs/plugin-react": 6.0.1
+  '@base-ui/react': ^1.3.0
+  '@eslint/compat': ^2.0.3
+  '@eslint/js': ^9.38.0
+  '@fontsource-variable/geist': ^5.2.8
+  '@fontsource-variable/geist-mono': ^5.2.7
+  '@fontsource-variable/space-grotesk': ^5.2.8
+  '@hookform/resolvers': ^5.2.2
+  '@ianvs/prettier-plugin-sort-imports': ^4.7.1
+  '@next/eslint-plugin-next': ^16.2.1
+  '@t3-oss/env-core': ^0.13.11
+  '@t3-oss/env-nextjs': ^0.13.11
+  '@tailwindcss/postcss': ^4.2.2
+  '@tailwindcss/vite': ^4.2.2
+  '@tanstack/react-form': ^1.28.6
+  '@tanstack/react-query': ^5.96.0
+  '@tanstack/react-router': ^1.168.10
+  '@tanstack/react-router-devtools': ^1.166.11
+  '@tanstack/react-router-ssr-query': ^1.166.10
+  '@tanstack/react-start': ^1.167.16
+  '@trpc/client': ^11.16.0
+  '@trpc/server': ^11.16.0
+  '@trpc/tanstack-react-query': ^11.16.0
+  '@turbo/gen': ^2.5.8
+  '@types/node': ^25.5.0
+  '@vitejs/plugin-react': 6.0.1
   axios: ^1.14.0
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
@@ -53,6 +52,8 @@ catalog:
   prettier: ^3.8.1
   prettier-plugin-tailwindcss: ^0.7.2
   react-day-picker: ^9.14.0
+  react-dropzone: ^14.3.8
+  react-select: ^5.10.2
   react-hook-form: ^7.72.0
   react-resizable-panels: ^4.8.0
   recharts: 3.8.0
@@ -71,32 +72,32 @@ catalog:
 
 catalogs:
   react19:
-    "@types/react": ~19.2.14
-    "@types/react-dom": ~19.2.3
+    '@types/react': ~19.2.14
+    '@types/react-dom': ~19.2.3
     react: 19.2.4
     react-dom: 19.2.4
 
 linkWorkspacePackages: true
 
 onlyBuiltDependencies:
-  - "@tailwindcss/oxide"
+  - '@tailwindcss/oxide'
   - esbuild
 
 overrides:
-  "@types/minimatch": 5.1.2
+  '@types/minimatch': 5.1.2
   lightningcss: 1.30.1
   vite: 8.0.3
 
-publicHoistPattern:
-  - "@ianvs/prettier-plugin-sort-imports"
-  - prettier-plugin-tailwindcss
+packageExtensions:
+  drizzle-orm@*:
+    peerDependenciesMeta:
+      '@vercel/postgres':
+        optional: true
 
 peerDependencyRules:
   ignoreMissing:
-    - "@vercel/postgres"
+    - '@vercel/postgres'
 
-packageExtensions:
-  "drizzle-orm@*":
-    peerDependenciesMeta:
-      "@vercel/postgres":
-        optional: true
+publicHoistPattern:
+  - '@ianvs/prettier-plugin-sort-imports'
+  - prettier-plugin-tailwindcss

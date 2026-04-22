@@ -7,10 +7,6 @@ import { api } from "../caller";
 import { protectedProcedure, publicProcedure } from "../trpc";
 
 export const enterpriseRouter = {
-  /**
-   * GET Enterprise Host Details
-   * (Public → no auth required)
-   */
   getEnterpriseAccountHostDetails: publicProcedure
     .input(
       z.object({
@@ -18,22 +14,16 @@ export const enterpriseRouter = {
       }),
     )
     .query(async ({ input }) => {
-      const domainHost = input.domainHost;
-
       return await api.get<GetHostDetailsResponse>(
         "/enterprise-admin/getEnterpriseAccountsHostDetails",
         {
           query: {
-            domain_host: domainHost,
+            domain_host: input.domainHost,
           },
         },
       );
     }),
 
-  /**
-   * GET User Role Permissions
-   * (Protected → requires session)
-   */
   getUserRolePermissions: protectedProcedure
     .input(z.object({ userId: z.string(), host: z.string() }))
     .query(async ({ input }) => {

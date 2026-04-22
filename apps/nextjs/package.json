@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@acme/api": "workspace:*",
+    "@acme/shared-ui": "workspace:*",
     "@acme/ui": "workspace:*",
     "@acme/validators": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.11",

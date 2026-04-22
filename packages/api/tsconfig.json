@@ -2,9 +2,21 @@
   "extends": "@acme/tsconfig/compiled-package.json",
   "compilerOptions": {
     "lib": ["ES2022", "dom", "dom.iterable"],
+    "types": ["node"],
     "jsx": "preserve",
     "rootDir": "src"
   },
-  "include": ["src"],
+  "include": [
+    "src/caller.ts",
+    "src/fetcher.ts",
+    "src/index.ts",
+    "src/react.tsx",
+    "src/root.ts",
+    "src/services.ts",
+    "src/trpc.ts",
+    "src/router/enterprise.ts",
+    "src/router/new-visa.ts",
+    "src/router/qr-visa.ts"
+  ],
   "exclude": ["node_modules"]
 }

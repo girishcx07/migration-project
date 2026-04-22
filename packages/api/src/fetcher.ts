@@ -15,6 +15,20 @@ export type ApiFailure = {
 
 export type ApiResponse<T> = ApiSuccess<T> | ApiFailure;
 
+export type LegacyApiSuccess<T> = {
+  data: "success";
+  dataobj?: T;
+  msg?: string;
+};
+
+export type LegacyApiFailure = {
+  data: "error";
+  dataobj?: unknown;
+  msg?: string;
+};
+
+export type LegacyApiResponse<T> = LegacyApiSuccess<T> | LegacyApiFailure;
+
 export type ApiError = {
   msg: string;
   statusCode: number;
@@ -160,6 +174,28 @@ function isApiResponse<T>(value: unknown): value is ApiResponse<T> {
   return false;
 }
 
+function isLegacyApiResponse<T>(value: unknown): value is LegacyApiResponse<T> {
+  if (!value || typeof value !== "object") return false;
+  if (!("data" in value)) return false;
+
+  const v = value as Record<string, unknown>;
+  return v.data === "success" || v.data === "error";
+}
+
+function normalizeApiPayload<T>(
+  payload: unknown,
+): ApiResponse<T> | LegacyApiResponse<T> | null {
+  if (isApiResponse<T>(payload)) {
+    return payload;
+  }
+
+  if (isLegacyApiResponse<T>(payload)) {
+    return payload;
+  }
+
+  return null;
+}
+
 function normalizeHeaders(headers?: HeadersInit) {
   return new Headers(headers ?? {});
 }
@@ -210,7 +246,7 @@ async function parseResponseBody(response: Response): Promise<unknown> {
 
 function toApiError(response: Response, payload: unknown): ApiError {
   if (payload && typeof payload === "object") {
-    const maybe = payload as Partial<ApiFailure>;
+    const maybe = payload as Partial<ApiFailure & LegacyApiFailure>;
 
     return {
       msg: typeof maybe.msg === "string" ? maybe.msg : "Request failed",
@@ -311,7 +347,9 @@ export function createApiClient<TContext extends ApiClientContext = {}>(
       throw toApiError(response, payload);
     }
 
-    if (!isApiResponse<TResponse>(payload)) {
+    const normalizedPayload = normalizeApiPayload<TResponse>(payload);
+
+    if (!normalizedPayload) {
       throw {
         msg: "Invalid API response format",
         statusCode: response.status,
@@ -319,15 +357,29 @@ export function createApiClient<TContext extends ApiClientContext = {}>(
       } satisfies ApiError;
     }
 
-    if (!payload.success) {
-      throw {
-        msg: payload.msg,
-        statusCode: payload.statusCode ?? response.status,
-        errors: payload.errors,
-      } satisfies ApiError;
-    }
+    let result: TResponse;
 
-    const result = payload.data;
+    if ("success" in normalizedPayload) {
+      if (!normalizedPayload.success) {
+        throw {
+          msg: normalizedPayload.msg,
+          statusCode: normalizedPayload.statusCode ?? response.status,
+          errors: normalizedPayload.errors,
+        } satisfies ApiError;
+      }
+
+      result = normalizedPayload.data;
+    } else {
+      if (normalizedPayload.data !== "success") {
+        throw {
+          msg: normalizedPayload.msg ?? "Request failed",
+          statusCode: response.status,
+          errors: normalizedPayload.dataobj,
+        } satisfies ApiError;
+      }
+
+      result = (normalizedPayload.dataobj ?? null) as TResponse;
+    }
 
     if (resolvedOptions.responseSchema) {
       return resolvedOptions.responseSchema.parse(result) as TResponse;

@@ -1,0 +1,43 @@
+{
+  "extends": "@workspace/typescript-config/react-library.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/ui/*": [
+        "../ui/src/*"
+      ],
+      "@workspace/common/*": [
+        "../common/src/*"
+      ],
+      "@workspace/common-ui/*": [
+        "./src/*"
+      ],
+      "@workspace/types": [
+        "../types/src/index.ts"
+      ],
+      "@workspace/types/*": [
+        "../types/src/*"
+      ],
+      "@workspace/orpc/*": [
+        "../orpc/src/*"
+      ]
+    },
+    "types": [
+      "node",
+      "react",
+      "react-dom"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.d.ts"
+, "../../apps/evm/src/app/chat-with-us.tsx"  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

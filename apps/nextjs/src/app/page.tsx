@@ -1,4 +1,5 @@
 import { Button } from "@acme/ui/components/button";
+import { Demo } from "@acme/ui/components/demo";
 
 export default function Page() {
   return (
@@ -13,6 +14,9 @@ export default function Page() {
         <div className="text-muted-foreground font-mono text-xs">
           (Press <kbd>d</kbd> to toggle dark mode)
         </div>
+      </div>
+      <div>
+        <Demo />
       </div>
     </div>
   );

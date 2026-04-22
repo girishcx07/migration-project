@@ -1,16 +1,11 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import * as z from "zod";
 
-import type {
-  BaseAPIResponse,
-  QRVisaRegisterAnonymousUserInput,
-  QRVisaUser,
-} from "@repo/types";
-import type { Application } from "@repo/types/review";
+import type { QRVisaRegisterAnonymousUserInput, QRVisaUser } from "@acme/types";
+import type { Application } from "@acme/types/review";
 
-import apiConfig from "../lib/axios";
-import { SERVICES } from "../lib/services";
-import { parseApiResponse } from "../lib/utils";
+import { api } from "../caller";
+import { SERVICES } from "../services";
 import { publicProcedure } from "../trpc";
 
 type QrVisaUserApplication = Application & { user: QRVisaUser };
@@ -25,16 +20,16 @@ export const qrVisaRouter = {
         host: z.string(),
       }),
     )
-    .query(async ({ input }) => {
-      const response = await apiConfig.get<
-        BaseAPIResponse<QRVisaRegisterAnonymousUserInput>
-      >(SERVICES.REGISTER_ANONYMOUS_USER, {
-        params: {
-          host: input.host,
+    .query(async ({ input, ctx }) => {
+      return await api.get<QRVisaRegisterAnonymousUserInput>(
+        SERVICES.REGISTER_ANONYMOUS_USER,
+        {
+          query: {
+            host: input.host,
+          },
+          headers: ctx.headers,
         },
-      });
-
-      return parseApiResponse(response.data);
+      );
     }),
 
   /**
@@ -47,16 +42,17 @@ export const qrVisaRouter = {
         host: z.string(),
       }),
     )
-    .mutation(async ({ input }) => {
-      const response = await apiConfig.post<BaseAPIResponse<Application>>(
+    .mutation(async ({ input, ctx }) => {
+      return await api.post<Application>(
         SERVICES.SEND_OTP_FOR_VISA,
         {
-          application_reference_code: input.application_reference_code,
-          host: input.host,
+          body: {
+            application_reference_code: input.application_reference_code,
+            host: input.host,
+          },
+          headers: ctx.headers,
         },
       );
-
-      return parseApiResponse(response.data);
     }),
 
   /**
@@ -70,15 +66,14 @@ export const qrVisaRouter = {
         host: z.string(),
       }),
     )
-    .mutation(async ({ input }) => {
-      const response = await apiConfig.post<
-        BaseAPIResponse<QrVisaUserApplication>
-      >(SERVICES.VERIFY_OTP_FOR_VISA, {
-        application_id: input.application_id,
-        otp: input.otp,
-        host: input.host,
+    .mutation(async ({ input, ctx }) => {
+      return await api.post<QrVisaUserApplication>(SERVICES.VERIFY_OTP_FOR_VISA, {
+        body: {
+          application_id: input.application_id,
+          otp: input.otp,
+          host: input.host,
+        },
+        headers: ctx.headers,
       });
-
-      return parseApiResponse(response.data);
     }),
 } satisfies TRPCRouterRecord;

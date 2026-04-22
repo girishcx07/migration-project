@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "emitDeclarationOnly": false,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": false,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/ui/*": ["../ui/dist/*"],
+      "@workspace/orpc/*": ["../orpc/dist/*"],
+      "@workspace/types/*": ["../types/dist/*"],
+      "@workspace/types": ["../types/dist/index.d.ts"],
+      "@workspace/common/*": ["../common/dist/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["**/*.test.*", "**/*.spec.*", "node_modules", "dist"]
+}

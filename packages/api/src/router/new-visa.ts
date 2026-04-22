@@ -1,4 +1,3 @@
-import type { BaseAPIResponse, DataStatusType } from "@repo/types";
 import type {
   CreateApplicationResponse,
   GetNationalityResponse,
@@ -8,7 +7,7 @@ import type {
   GetVisaOfferResponse,
   SearchRaffApplicantsResponse,
   UploadedDocumentFiles,
-} from "@repo/types/new-visa";
+} from "@acme/types/new-visa";
 import type { TRPCRouterRecord } from "@trpc/server";
 import { TRPCError } from "@trpc/server";
 import * as z from "zod";
@@ -18,23 +17,39 @@ import {
   searchRaffApplicationPayloadSchema,
 } from "@acme/validators/new-visa";
 
-import apiConfig from "../lib/axios";
-import { parseBaseApiResponseStrict } from "../lib/response";
-import { SERVICES } from "../lib/services";
-import { getCookieFromHeader } from "../lib/session";
+import { api } from "../caller";
+import { SERVICES } from "../services";
 import { protectedProcedure, publicProcedure } from "../trpc";
+
+const getCookieFromHeader = (headers: Headers, key: string) => {
+  const cookieHeader = headers.get("cookie");
+  if (!cookieHeader) {
+    return undefined;
+  }
+
+  return cookieHeader
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${key}=`))
+    ?.split("=")[1];
+};
+
+const fileSchema = z.custom<File>(
+  (value): value is File =>
+    typeof File !== "undefined" && value instanceof File,
+  {
+    message: "Please upload a valid file",
+  },
+);
 
 export const newVisaRouter = {
   getNationalities: protectedProcedure.query(async ({ ctx }) => {
     const { userId, host } = ctx.session;
 
-    const response = await apiConfig.get<
-      BaseAPIResponse<GetNationalityResponse>
-    >(SERVICES.GET_NATIONALITIES, {
-      params: { user_id: userId, host },
+    return await api.get<GetNationalityResponse>(SERVICES.GET_NATIONALITIES, {
+      query: { user_id: userId, host },
+      headers: ctx.headers,
     });
-
-    return parseBaseApiResponseStrict(response.data);
   }),
 
   getTravellingTo: protectedProcedure
@@ -47,16 +62,15 @@ export const newVisaRouter = {
     .mutation(async ({ input, ctx }) => {
       const { userId, host } = ctx.session;
 
-      const response = await apiConfig.post<
-        BaseAPIResponse<GetTravellingToResponse>
-      >(SERVICES.GET_TRAVELLING_TO, {
-        ...input,
-        user_id: userId,
-        host,
-        filtered: true,
+      return await api.post<GetTravellingToResponse>(SERVICES.GET_TRAVELLING_TO, {
+        body: {
+          ...input,
+          user_id: userId,
+          host,
+          filtered: true,
+        },
+        headers: ctx.headers,
       });
-
-      return parseBaseApiResponseStrict(response.data);
     }),
 
   getVisaOffers: protectedProcedure
@@ -72,16 +86,15 @@ export const newVisaRouter = {
     .query(async ({ input, ctx }) => {
       const { userId, host } = ctx.session;
 
-      const response = await apiConfig.post<
-        BaseAPIResponse<GetVisaOfferResponse>
-      >(SERVICES.GET_VISA_OFFERS, {
-        ...input,
-        user_id: userId,
-        host,
-        source: "evm",
+      return await api.post<GetVisaOfferResponse>(SERVICES.GET_VISA_OFFERS, {
+        body: {
+          ...input,
+          user_id: userId,
+          host,
+          source: "evm",
+        },
+        headers: ctx.headers,
       });
-
-      return parseBaseApiResponseStrict(response.data);
     }),
 
   getSupportedCurrencies: publicProcedure.query(async ({ ctx }) => {
@@ -94,13 +107,13 @@ export const newVisaRouter = {
       });
     }
 
-    const response = await apiConfig.get<
-      BaseAPIResponse<GetSupportedCurrenciesResponse>
-    >(SERVICES.GET_SUPPORTED_CURRENCIES, {
-      params: { host },
-    });
-
-    return parseBaseApiResponseStrict(response.data);
+    return await api.get<GetSupportedCurrenciesResponse>(
+      SERVICES.GET_SUPPORTED_CURRENCIES,
+      {
+        query: { host },
+        headers: ctx.headers,
+      },
+    );
   }),
 
   getVisaDocuments: protectedProcedure
@@ -113,20 +126,19 @@ export const newVisaRouter = {
     .query(async ({ input, ctx }) => {
       const { host } = ctx.session;
 
-      const response = await apiConfig.post<
-        BaseAPIResponse<GetVisaDocumentsResponse>
-      >(SERVICES.GET_VISA_DOCUMENTS, {
-        ...input,
-        host,
+      return await api.post<GetVisaDocumentsResponse>(SERVICES.GET_VISA_DOCUMENTS, {
+        body: {
+          ...input,
+          host,
+        },
+        headers: ctx.headers,
       });
-
-      return parseBaseApiResponseStrict(response.data);
     }),
 
   uploadAndExtractDocuments: protectedProcedure
     .input(
       z.object({
-        document: z.file(),
+        document: fileSchema,
         nationality_code: z.string(),
         visa_id: z.string(),
       }),
@@ -141,11 +153,14 @@ export const newVisaRouter = {
       formData.append("user_id", userId);
       formData.append("visa_id", input.visa_id);
 
-      const response = await apiConfig.post<
-        BaseAPIResponse<UploadedDocumentFiles>
-      >(SERVICES.UPLOAD_AND_EXTRACT_DOCUMENTS, formData, { signal });
-
-      return parseBaseApiResponseStrict(response.data);
+      return await api.post<UploadedDocumentFiles>(
+        SERVICES.UPLOAD_AND_EXTRACT_DOCUMENTS,
+        {
+          body: formData,
+          headers: ctx.headers,
+          signal,
+        },
+      );
     }),
 
   createApplicationWithDocuments: protectedProcedure
@@ -153,45 +168,35 @@ export const newVisaRouter = {
     .mutation(async ({ ctx, input }) => {
       const { host, userId } = ctx.session;
 
-      const response = await apiConfig.post<
-        BaseAPIResponse<CreateApplicationResponse>
-      >(SERVICES.CREATE_APPLICATION_WITH_DOCUMENTS, {
-        ...input,
-        host,
-        user_id: userId,
-      });
-
-      const parsed = parseBaseApiResponseStrict(response.data);
-
-      return {
-        ...parsed,
-        msg: parsed.msg ?? "Application created successfully",
-      };
+      return await api.post<CreateApplicationResponse>(
+        SERVICES.CREATE_APPLICATION_WITH_DOCUMENTS,
+        {
+          body: {
+            ...input,
+            host,
+            user_id: userId,
+          },
+          headers: ctx.headers,
+        },
+      );
     }),
 
   updatePriceChangeAck: protectedProcedure.mutation(async ({ ctx }) => {
     const { host, userId } = ctx.session;
 
-    const response = await apiConfig.post<BaseAPIResponse<{ status: string }>>(
+    await api.post(
       SERVICES.UPDATE_PRICE_CHANGE_ACK,
       {
-        host,
-        user_id: userId,
+        body: {
+          host,
+          user_id: userId,
+        },
+        headers: ctx.headers,
       },
     );
 
-    const res = response.data;
-
-    if (res.data !== "success") {
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: res.msg,
-      });
-    }
-
     return {
-      status: res.data as DataStatusType,
-      msg: res.msg,
+      status: "success" as const,
     };
   }),
 
@@ -200,14 +205,16 @@ export const newVisaRouter = {
     .mutation(async ({ ctx, input }) => {
       const { host, userId } = ctx.session;
 
-      const response = await apiConfig.post<
-        BaseAPIResponse<SearchRaffApplicantsResponse[]>
-      >(SERVICES.SEARCH_RAFF_APPLICANTS, {
-        ...input,
-        host,
-        user_id: userId,
-      });
-
-      return parseBaseApiResponseStrict(response.data);
+      return await api.post<SearchRaffApplicantsResponse[]>(
+        SERVICES.SEARCH_RAFF_APPLICANTS,
+        {
+          body: {
+            ...input,
+            host,
+            user_id: userId,
+          },
+          headers: ctx.headers,
+        },
+      );
     }),
 } satisfies TRPCRouterRecord;

@@ -13,7 +13,7 @@ export const env = createEnv({
    * This way you can ensure the app isn't built with invalid env vars.
    */
   server: {
-    API_URL: z.url(),
+    API_BASE_URL: z.url(),
   },
 
   /**

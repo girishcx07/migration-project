@@ -5,8 +5,8 @@ import { getUserSession } from "@/auth/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
-import type { AppRouter } from "@repo/api";
-import { appRouter, createTRPCContext } from "@repo/api";
+import type { AppRouter } from "@acme/api";
+import { appRouter, createTRPCContext } from "@acme/api";
 
 import { createQueryClient } from "./query-client";
 
@@ -52,3 +52,17 @@ export function prefetch<T extends ReturnType<TRPCQueryOptions<any>>>(
     void queryClient.prefetchQuery(queryOptions);
   }
 }
+
+export const createServerCaller = cache(
+  async (source = "nextjs-server-caller") => {
+  const requestHeaders = new Headers(await headers());
+    requestHeaders.set("x-trpc-source", source);
+
+    return appRouter.createCaller(
+      createTRPCContext({
+        headers: requestHeaders,
+        session: await getUserSession(),
+      }),
+    );
+  },
+);

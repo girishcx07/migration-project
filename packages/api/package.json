@@ -10,6 +10,10 @@
     "./react": {
       "types": "./dist/react.d.ts",
       "default": "./src/react.tsx"
+    },
+    "./caller": {
+      "types": "./dist/caller.d.ts",
+      "default": "./src/caller.ts"
     }
   },
   "license": "MIT",
