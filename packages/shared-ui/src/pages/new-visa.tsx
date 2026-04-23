@@ -31,7 +31,7 @@ const TOTAL_STEPS = STEPS.length;
 
 // ─── Layout ───────────────────────────────────────────────────────────────────
 
-export function VisaStepLayout({
+export function NewVisaPage({
   onReviewRoute: _onReviewRoute,
 }: {
   onReviewRoute: string;

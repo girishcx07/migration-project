@@ -1,3 +1,7 @@
+import type { TRPCRouterRecord } from "@trpc/server";
+import { TRPCError } from "@trpc/server";
+import * as z from "zod";
+
 import type {
   CreateApplicationResponse,
   GetNationalityResponse,
@@ -8,10 +12,6 @@ import type {
   SearchRaffApplicantsResponse,
   UploadedDocumentFiles,
 } from "@acme/types/new-visa";
-import type { TRPCRouterRecord } from "@trpc/server";
-import { TRPCError } from "@trpc/server";
-import * as z from "zod";
-
 import {
   createApplicationPayloadSchema,
   searchRaffApplicationPayloadSchema,
@@ -59,18 +59,21 @@ export const newVisaRouter = {
         nationality: z.string(),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
+    .query(async ({ input, ctx }) => {
       const { userId, host } = ctx.session;
 
-      return await api.post<GetTravellingToResponse>(SERVICES.GET_TRAVELLING_TO, {
-        body: {
-          ...input,
-          user_id: userId,
-          host,
-          filtered: true,
+      return await api.post<GetTravellingToResponse>(
+        SERVICES.GET_TRAVELLING_TO,
+        {
+          body: {
+            ...input,
+            user_id: userId,
+            host,
+            filtered: true,
+          },
+          headers: ctx.headers,
         },
-        headers: ctx.headers,
-      });
+      );
     }),
 
   getVisaOffers: protectedProcedure
@@ -126,13 +129,16 @@ export const newVisaRouter = {
     .query(async ({ input, ctx }) => {
       const { host } = ctx.session;
 
-      return await api.post<GetVisaDocumentsResponse>(SERVICES.GET_VISA_DOCUMENTS, {
-        body: {
-          ...input,
-          host,
+      return await api.post<GetVisaDocumentsResponse>(
+        SERVICES.GET_VISA_DOCUMENTS,
+        {
+          body: {
+            ...input,
+            host,
+          },
+          headers: ctx.headers,
         },
-        headers: ctx.headers,
-      });
+      );
     }),
 
   uploadAndExtractDocuments: protectedProcedure
@@ -184,16 +190,13 @@ export const newVisaRouter = {
   updatePriceChangeAck: protectedProcedure.mutation(async ({ ctx }) => {
     const { host, userId } = ctx.session;
 
-    await api.post(
-      SERVICES.UPDATE_PRICE_CHANGE_ACK,
-      {
-        body: {
-          host,
-          user_id: userId,
-        },
-        headers: ctx.headers,
+    await api.post(SERVICES.UPDATE_PRICE_CHANGE_ACK, {
+      body: {
+        host,
+        user_id: userId,
       },
-    );
+      headers: ctx.headers,
+    });
 
     return {
       status: "success" as const,

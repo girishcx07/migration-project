@@ -11,7 +11,7 @@ export function Flag({ className, alt, ...props }: FlagProps) {
     <img
       alt={alt ?? ""}
       className={cn(
-        "h-3.5 w-6 overflow-hidden rounded-[2px] border border-gray-300 bg-white object-contain shadow-sm",
+        "h-3.5 w-5 overflow-hidden rounded-[2px] border border-gray-300 bg-white object-contain shadow-sm",
         className,
       )}
       height={14}

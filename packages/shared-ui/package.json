@@ -6,7 +6,6 @@
     "./components/*": "./src/components/*.tsx",
     "./hooks/*": "./src/hooks/*.ts",
     "./lib/*": "./src/lib/*.ts",
-    "./modules/new-visa/page": "./src/modules/new-visa/page.tsx",
     "./pages/new-visa": "./src/pages/new-visa.tsx"
   },
   "license": "MIT",

@@ -1,7 +1,7 @@
 "use client";
 
 import { NoticeResult } from "@acme/shared-ui/lib/new-visa-utils";
-import { getCookie } from "@acme/shared-ui/lib/cookies";
+import { getCookie, setClientCookie } from "@acme/shared-ui/lib/cookies";
 import { UploadedDocumentFiles, VisaOffer } from "@acme/types/new-visa";
 import { addDays } from "date-fns";
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
@@ -27,10 +27,11 @@ type VisaNoticeType = {
 
 interface VisaColumnContextType {
   columnNumber: number;
-  setColumnNumber: (val: number) => void;
+  setColumnNumber: React.Dispatch<React.SetStateAction<number>>;
 
   currency: string;
-  setCurrency: (val: string) => void;
+  setCurrency: React.Dispatch<React.SetStateAction<string>>;
+  host: string;
 
   isUploadingDocuments: boolean;
   setUploadingDocuments: (val: boolean) => void;
@@ -71,8 +72,12 @@ const VisaColumnContext = createContext<VisaColumnContextType | undefined>(
 
 export const VisaColumnProvider = ({
   children,
+  initialCurrency,
+  initialHost,
 }: {
   children: React.ReactNode;
+  initialCurrency?: string;
+  initialHost?: string;
 }) => {
   const [columnNumber, setColumnNumber] = useState<number>(1);
   const [commonNotice, setCommonNotice] = useState<CommonNoticeType>({
@@ -88,6 +93,7 @@ export const VisaColumnProvider = ({
   });
 
   const [currency, setCurrency] = useState<string>("USD");
+  const [host, setHost] = useState<string>(initialHost ?? "");
   const [isUploadingDocuments, setUploadingDocuments] =
     useState<boolean>(false);
   const [raffApplicants, setRaffApplicants] = useState<string[]>([]);
@@ -96,12 +102,26 @@ export const VisaColumnProvider = ({
   const shouldTriggerNoticeRef = useRef(false);
 
   useEffect(() => {
+    const cookieHost = getCookie("host");
+    const resolvedHost = initialHost || cookieHost || "";
+
+    setHost(resolvedHost);
+
+    if (initialHost) {
+      setClientCookie("host", initialHost);
+    }
+  }, [initialHost]);
+
+  useEffect(() => {
     const defaultCurrency = getCookie("selected_currency");
     const userCurrency = getCookie("currency");
-    const host = getCookie("host");
+    const cookieHost = getCookie("host");
+    const resolvedHost = initialHost || cookieHost || "";
 
-    if (host === "arcube") {
+    if (resolvedHost === "arcube") {
       setCurrency("OMR");
+    } else if (initialCurrency) {
+      setCurrency(initialCurrency);
     } else if (defaultCurrency) {
       setCurrency(defaultCurrency);
     } else if (userCurrency) {
@@ -109,7 +129,13 @@ export const VisaColumnProvider = ({
     } else {
       setCurrency("USD");
     }
-  }, [setCurrency]);
+  }, [initialCurrency, initialHost, setCurrency]);
+
+  useEffect(() => {
+    if (initialCurrency) {
+      setClientCookie("selected_currency", initialCurrency);
+    }
+  }, [initialCurrency]);
 
   const [data, setData] = useState<VisaColumnData>({
     visaApplication: {
@@ -191,6 +217,7 @@ export const VisaColumnProvider = ({
         setUploadingDocuments,
         currency,
         setCurrency,
+        host,
         data,
         setData,
         setVisaApplicationField,
@@ -200,8 +227,9 @@ export const VisaColumnProvider = ({
         setRaffApplicants,
         commonNotice,
         setCommonNotice,
-        isNoticeHandled, setIsNoticeHandled,
-        shouldTriggerNoticeRef
+        isNoticeHandled,
+        setIsNoticeHandled,
+        shouldTriggerNoticeRef,
       }}
     >
       {children}
