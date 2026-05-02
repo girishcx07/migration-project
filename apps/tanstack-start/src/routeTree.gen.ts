@@ -10,38 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as QrVisaQrLayoutRouteImport } from './routes/qr-visa/_qrLayout'
-import { Route as QrVisaQrLayoutIndexRouteImport } from './routes/qr-visa/_qrLayout/index'
-import { Route as QrVisaQrLayoutReviewRouteImport } from './routes/qr-visa/_qrLayout/review'
-import { Route as QrVisaQrLayoutNewVisaRouteImport } from './routes/qr-visa/_qrLayout/new-visa'
+import { Route as ModuleIdUnauthorizedRouteImport } from './routes/$moduleId/unauthorized'
+import { Route as ModuleIdModuleLayoutRouteImport } from './routes/$moduleId/_moduleLayout'
+import { Route as ModuleIdModuleLayoutIndexRouteImport } from './routes/$moduleId/_moduleLayout/index'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
+import { Route as ModuleIdModuleLayoutReviewRouteImport } from './routes/$moduleId/_moduleLayout/review'
+import { Route as ModuleIdModuleLayoutNewVisaRouteImport } from './routes/$moduleId/_moduleLayout/new-visa'
+import { Route as ModuleIdModuleLayoutInitializeRouteImport } from './routes/$moduleId/_moduleLayout/initialize'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QrVisaQrLayoutRoute = QrVisaQrLayoutRouteImport.update({
-  id: '/qr-visa/_qrLayout',
-  path: '/qr-visa',
+const ModuleIdUnauthorizedRoute = ModuleIdUnauthorizedRouteImport.update({
+  id: '/$moduleId/unauthorized',
+  path: '/$moduleId/unauthorized',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QrVisaQrLayoutIndexRoute = QrVisaQrLayoutIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => QrVisaQrLayoutRoute,
+const ModuleIdModuleLayoutRoute = ModuleIdModuleLayoutRouteImport.update({
+  id: '/$moduleId/_moduleLayout',
+  path: '/$moduleId',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const QrVisaQrLayoutReviewRoute = QrVisaQrLayoutReviewRouteImport.update({
-  id: '/review',
-  path: '/review',
-  getParentRoute: () => QrVisaQrLayoutRoute,
-} as any)
-const QrVisaQrLayoutNewVisaRoute = QrVisaQrLayoutNewVisaRouteImport.update({
-  id: '/new-visa',
-  path: '/new-visa',
-  getParentRoute: () => QrVisaQrLayoutRoute,
-} as any)
+const ModuleIdModuleLayoutIndexRoute =
+  ModuleIdModuleLayoutIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => ModuleIdModuleLayoutRoute,
+  } as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
   id: '/api/trpc/$',
   path: '/api/trpc/$',
@@ -52,66 +50,97 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModuleIdModuleLayoutReviewRoute =
+  ModuleIdModuleLayoutReviewRouteImport.update({
+    id: '/review',
+    path: '/review',
+    getParentRoute: () => ModuleIdModuleLayoutRoute,
+  } as any)
+const ModuleIdModuleLayoutNewVisaRoute =
+  ModuleIdModuleLayoutNewVisaRouteImport.update({
+    id: '/new-visa',
+    path: '/new-visa',
+    getParentRoute: () => ModuleIdModuleLayoutRoute,
+  } as any)
+const ModuleIdModuleLayoutInitializeRoute =
+  ModuleIdModuleLayoutInitializeRouteImport.update({
+    id: '/initialize',
+    path: '/initialize',
+    getParentRoute: () => ModuleIdModuleLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/qr-visa': typeof QrVisaQrLayoutRouteWithChildren
+  '/$moduleId': typeof ModuleIdModuleLayoutRouteWithChildren
+  '/$moduleId/unauthorized': typeof ModuleIdUnauthorizedRoute
+  '/$moduleId/initialize': typeof ModuleIdModuleLayoutInitializeRoute
+  '/$moduleId/new-visa': typeof ModuleIdModuleLayoutNewVisaRoute
+  '/$moduleId/review': typeof ModuleIdModuleLayoutReviewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
-  '/qr-visa/new-visa': typeof QrVisaQrLayoutNewVisaRoute
-  '/qr-visa/review': typeof QrVisaQrLayoutReviewRoute
-  '/qr-visa/': typeof QrVisaQrLayoutIndexRoute
+  '/$moduleId/': typeof ModuleIdModuleLayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$moduleId/unauthorized': typeof ModuleIdUnauthorizedRoute
+  '/$moduleId/initialize': typeof ModuleIdModuleLayoutInitializeRoute
+  '/$moduleId/new-visa': typeof ModuleIdModuleLayoutNewVisaRoute
+  '/$moduleId/review': typeof ModuleIdModuleLayoutReviewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
-  '/qr-visa/new-visa': typeof QrVisaQrLayoutNewVisaRoute
-  '/qr-visa/review': typeof QrVisaQrLayoutReviewRoute
-  '/qr-visa': typeof QrVisaQrLayoutIndexRoute
+  '/$moduleId': typeof ModuleIdModuleLayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/qr-visa/_qrLayout': typeof QrVisaQrLayoutRouteWithChildren
+  '/$moduleId/_moduleLayout': typeof ModuleIdModuleLayoutRouteWithChildren
+  '/$moduleId/unauthorized': typeof ModuleIdUnauthorizedRoute
+  '/$moduleId/_moduleLayout/initialize': typeof ModuleIdModuleLayoutInitializeRoute
+  '/$moduleId/_moduleLayout/new-visa': typeof ModuleIdModuleLayoutNewVisaRoute
+  '/$moduleId/_moduleLayout/review': typeof ModuleIdModuleLayoutReviewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
-  '/qr-visa/_qrLayout/new-visa': typeof QrVisaQrLayoutNewVisaRoute
-  '/qr-visa/_qrLayout/review': typeof QrVisaQrLayoutReviewRoute
-  '/qr-visa/_qrLayout/': typeof QrVisaQrLayoutIndexRoute
+  '/$moduleId/_moduleLayout/': typeof ModuleIdModuleLayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/qr-visa'
+    | '/$moduleId'
+    | '/$moduleId/unauthorized'
+    | '/$moduleId/initialize'
+    | '/$moduleId/new-visa'
+    | '/$moduleId/review'
     | '/api/auth/$'
     | '/api/trpc/$'
-    | '/qr-visa/new-visa'
-    | '/qr-visa/review'
-    | '/qr-visa/'
+    | '/$moduleId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$moduleId/unauthorized'
+    | '/$moduleId/initialize'
+    | '/$moduleId/new-visa'
+    | '/$moduleId/review'
     | '/api/auth/$'
     | '/api/trpc/$'
-    | '/qr-visa/new-visa'
-    | '/qr-visa/review'
-    | '/qr-visa'
+    | '/$moduleId'
   id:
     | '__root__'
     | '/'
-    | '/qr-visa/_qrLayout'
+    | '/$moduleId/_moduleLayout'
+    | '/$moduleId/unauthorized'
+    | '/$moduleId/_moduleLayout/initialize'
+    | '/$moduleId/_moduleLayout/new-visa'
+    | '/$moduleId/_moduleLayout/review'
     | '/api/auth/$'
     | '/api/trpc/$'
-    | '/qr-visa/_qrLayout/new-visa'
-    | '/qr-visa/_qrLayout/review'
-    | '/qr-visa/_qrLayout/'
+    | '/$moduleId/_moduleLayout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  QrVisaQrLayoutRoute: typeof QrVisaQrLayoutRouteWithChildren
+  ModuleIdModuleLayoutRoute: typeof ModuleIdModuleLayoutRouteWithChildren
+  ModuleIdUnauthorizedRoute: typeof ModuleIdUnauthorizedRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
 }
@@ -125,33 +154,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/qr-visa/_qrLayout': {
-      id: '/qr-visa/_qrLayout'
-      path: '/qr-visa'
-      fullPath: '/qr-visa'
-      preLoaderRoute: typeof QrVisaQrLayoutRouteImport
+    '/$moduleId/unauthorized': {
+      id: '/$moduleId/unauthorized'
+      path: '/$moduleId/unauthorized'
+      fullPath: '/$moduleId/unauthorized'
+      preLoaderRoute: typeof ModuleIdUnauthorizedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/qr-visa/_qrLayout/': {
-      id: '/qr-visa/_qrLayout/'
+    '/$moduleId/_moduleLayout': {
+      id: '/$moduleId/_moduleLayout'
+      path: '/$moduleId'
+      fullPath: '/$moduleId'
+      preLoaderRoute: typeof ModuleIdModuleLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$moduleId/_moduleLayout/': {
+      id: '/$moduleId/_moduleLayout/'
       path: '/'
-      fullPath: '/qr-visa/'
-      preLoaderRoute: typeof QrVisaQrLayoutIndexRouteImport
-      parentRoute: typeof QrVisaQrLayoutRoute
-    }
-    '/qr-visa/_qrLayout/review': {
-      id: '/qr-visa/_qrLayout/review'
-      path: '/review'
-      fullPath: '/qr-visa/review'
-      preLoaderRoute: typeof QrVisaQrLayoutReviewRouteImport
-      parentRoute: typeof QrVisaQrLayoutRoute
-    }
-    '/qr-visa/_qrLayout/new-visa': {
-      id: '/qr-visa/_qrLayout/new-visa'
-      path: '/new-visa'
-      fullPath: '/qr-visa/new-visa'
-      preLoaderRoute: typeof QrVisaQrLayoutNewVisaRouteImport
-      parentRoute: typeof QrVisaQrLayoutRoute
+      fullPath: '/$moduleId/'
+      preLoaderRoute: typeof ModuleIdModuleLayoutIndexRouteImport
+      parentRoute: typeof ModuleIdModuleLayoutRoute
     }
     '/api/trpc/$': {
       id: '/api/trpc/$'
@@ -167,28 +189,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$moduleId/_moduleLayout/review': {
+      id: '/$moduleId/_moduleLayout/review'
+      path: '/review'
+      fullPath: '/$moduleId/review'
+      preLoaderRoute: typeof ModuleIdModuleLayoutReviewRouteImport
+      parentRoute: typeof ModuleIdModuleLayoutRoute
+    }
+    '/$moduleId/_moduleLayout/new-visa': {
+      id: '/$moduleId/_moduleLayout/new-visa'
+      path: '/new-visa'
+      fullPath: '/$moduleId/new-visa'
+      preLoaderRoute: typeof ModuleIdModuleLayoutNewVisaRouteImport
+      parentRoute: typeof ModuleIdModuleLayoutRoute
+    }
+    '/$moduleId/_moduleLayout/initialize': {
+      id: '/$moduleId/_moduleLayout/initialize'
+      path: '/initialize'
+      fullPath: '/$moduleId/initialize'
+      preLoaderRoute: typeof ModuleIdModuleLayoutInitializeRouteImport
+      parentRoute: typeof ModuleIdModuleLayoutRoute
+    }
   }
 }
 
-interface QrVisaQrLayoutRouteChildren {
-  QrVisaQrLayoutNewVisaRoute: typeof QrVisaQrLayoutNewVisaRoute
-  QrVisaQrLayoutReviewRoute: typeof QrVisaQrLayoutReviewRoute
-  QrVisaQrLayoutIndexRoute: typeof QrVisaQrLayoutIndexRoute
+interface ModuleIdModuleLayoutRouteChildren {
+  ModuleIdModuleLayoutInitializeRoute: typeof ModuleIdModuleLayoutInitializeRoute
+  ModuleIdModuleLayoutNewVisaRoute: typeof ModuleIdModuleLayoutNewVisaRoute
+  ModuleIdModuleLayoutReviewRoute: typeof ModuleIdModuleLayoutReviewRoute
+  ModuleIdModuleLayoutIndexRoute: typeof ModuleIdModuleLayoutIndexRoute
 }
 
-const QrVisaQrLayoutRouteChildren: QrVisaQrLayoutRouteChildren = {
-  QrVisaQrLayoutNewVisaRoute: QrVisaQrLayoutNewVisaRoute,
-  QrVisaQrLayoutReviewRoute: QrVisaQrLayoutReviewRoute,
-  QrVisaQrLayoutIndexRoute: QrVisaQrLayoutIndexRoute,
+const ModuleIdModuleLayoutRouteChildren: ModuleIdModuleLayoutRouteChildren = {
+  ModuleIdModuleLayoutInitializeRoute: ModuleIdModuleLayoutInitializeRoute,
+  ModuleIdModuleLayoutNewVisaRoute: ModuleIdModuleLayoutNewVisaRoute,
+  ModuleIdModuleLayoutReviewRoute: ModuleIdModuleLayoutReviewRoute,
+  ModuleIdModuleLayoutIndexRoute: ModuleIdModuleLayoutIndexRoute,
 }
 
-const QrVisaQrLayoutRouteWithChildren = QrVisaQrLayoutRoute._addFileChildren(
-  QrVisaQrLayoutRouteChildren,
-)
+const ModuleIdModuleLayoutRouteWithChildren =
+  ModuleIdModuleLayoutRoute._addFileChildren(ModuleIdModuleLayoutRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  QrVisaQrLayoutRoute: QrVisaQrLayoutRouteWithChildren,
+  ModuleIdModuleLayoutRoute: ModuleIdModuleLayoutRouteWithChildren,
+  ModuleIdUnauthorizedRoute: ModuleIdUnauthorizedRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
 }

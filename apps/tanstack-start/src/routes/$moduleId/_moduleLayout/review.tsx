@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/qr-visa/_qrLayout/review")({
+export const Route = createFileRoute("/$moduleId/_moduleLayout/review")({
   component: RouteComponent,
 });
 

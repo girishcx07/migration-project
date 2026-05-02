@@ -5,6 +5,20 @@ import { getRequestHeader } from "@tanstack/react-start/server";
 
 import { QrVisaEntrySkeleton } from "@acme/ui/components/qr-visa-entry-skeleton";
 
+const allowedModules = [
+  "qr-visa",
+  "evm",
+  "console",
+  "b2b",
+  "enterprise",
+] as const;
+
+type ModuleId = (typeof allowedModules)[number];
+
+function isAllowedModule(moduleId: string): moduleId is ModuleId {
+  return allowedModules.includes(moduleId as ModuleId);
+}
+
 const getSSRRequestHost = createServerFn({ method: "GET" }).handler(() => {
   return (
     getRequestHeader("x-forwarded-host") ??
@@ -14,13 +28,21 @@ const getSSRRequestHost = createServerFn({ method: "GET" }).handler(() => {
   );
 });
 
-export const Route = createFileRoute("/qr-visa/_qrLayout")({
-  loader: async ({ context }) => {
+export const Route = createFileRoute("/$moduleId/_moduleLayout")({
+  beforeLoad: async ({ context, params }) => {
+    const { moduleId } = params;
+
+    if (!isAllowedModule(moduleId)) {
+      throw notFound();
+    }
+
     const { trpc, queryClient } = context;
-    const requestHost = await getSSRRequestHost({ data: undefined });
+
+    const requestHost = await getSSRRequestHost();
+
     const domainHost = getDomainHost({
       domainHost: requestHost,
-      moduleType: "qr-visa",
+      moduleType: moduleId,
     });
 
     if (!domainHost) {
@@ -38,9 +60,11 @@ export const Route = createFileRoute("/qr-visa/_qrLayout")({
     }
 
     return {
+      moduleId,
       enterpriseData,
     };
   },
+
   pendingComponent: QrVisaEntrySkeleton,
   component: Outlet,
 });

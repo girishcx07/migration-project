@@ -1,9 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { SearchIcon } from "lucide-react";
 
 import { useTRPC } from "@acme/api/react";
+import DateRangePicker, {
+  DateRangeTypes,
+} from "@acme/shared-ui/components/date-range-picker";
 import { Flag } from "@acme/shared-ui/components/flag-img";
+import {
+  DEFAULT_FROM_DATE,
+  DEFAULT_SELECTED_FROM_DATE,
+  DEFAULT_SELECTED_TO_DATE,
+  DEFAULT_TO_DATE,
+} from "@acme/shared-ui/constants";
 import { getCountryFlagBy3Code } from "@acme/shared-ui/lib/flag";
 import { Country, TravellingToCountry } from "@acme/types";
 import {
@@ -21,6 +30,10 @@ import { useStepContext } from "../../context/StepContext";
 
 export function VisaApplicationCard() {
   const { next } = useStepContext();
+  const [selectedDates, setSelectedDates] = useState<DateRangeTypes>({
+    from: DEFAULT_SELECTED_FROM_DATE,
+    to: DEFAULT_SELECTED_TO_DATE,
+  });
 
   const [selectedNationality, setSelectedNationality] =
     useState<Country | null>(null);
@@ -34,55 +47,66 @@ export function VisaApplicationCard() {
     data: { data: nationalitiesList },
   } = useSuspenseQuery(trpc.newVisa.getNationalities.queryOptions());
 
-  const { refetch, data } = useQuery(
+  const travellingToQuery = useQuery(
     trpc.newVisa.getTravellingTo.queryOptions(
       {
-        nationality: selectedNationality?.name!,
-        origin: selectedNationality?.name!,
+        nationality: selectedNationality?.name ?? "",
+        origin: selectedNationality?.name ?? "",
       },
       {
-        enabled: !!selectedNationality?.name,
+        enabled: !!selectedNationality?.name && !!selectedOrigin?.name,
       },
     ),
   );
 
-  const travellingToList = data?.data ?? [];
+  const travellingToList = travellingToQuery?.data?.data ?? [];
 
   const handleNationalityChange = (value: Country | null) => {
     setSelectedNationality(value);
     setSelectedOrigin(value);
     setSelectedTravellingTo(null);
-    refetch();
   };
+
   const handleOriginChange = (value: Country | null) => {
-    setSelectedNationality(value);
+    setSelectedOrigin(value);
     setSelectedTravellingTo(null);
-    refetch();
   };
 
   const handleTravellingToChange = (value: TravellingToCountry | null) => {
     setSelectedTravellingTo(value);
+    next();
+  };
+
+  const handleDatesChange = (value: DateRangeTypes) => {
+    setSelectedDates(value);
   };
 
   return (
     <div className="flex flex-col gap-4">
       <CountrySelect<Country>
         onValueChange={handleNationalityChange}
-        data={nationalitiesList!}
+        data={nationalitiesList ?? []}
         value={selectedNationality}
         placeHolder="Select a Nationality"
       />
       <CountrySelect<TravellingToCountry>
         onValueChange={handleTravellingToChange}
-        data={travellingToList!}
+        data={travellingToList ?? []}
         value={selectedTravellingTo}
         placeHolder="Select a Travelling to"
       />
       <CountrySelect
         onValueChange={handleOriginChange}
-        data={nationalitiesList!}
+        data={nationalitiesList ?? []}
         value={selectedOrigin}
         placeHolder="Select a Country of Residence"
+      />
+      <DateRangePicker
+        isDisabled={false}
+        fromDate={DEFAULT_FROM_DATE}
+        toDate={DEFAULT_TO_DATE}
+        selectedDates={selectedDates}
+        onSelect={handleDatesChange}
       />
     </div>
   );

@@ -1,15 +1,13 @@
-import { createFileRoute, getRouteApi } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { QrVisaEntry } from "@acme/ui/components/qr-visa-entry";
-const qrLayoutRoute = getRouteApi("/qr-visa/_qrLayout");
 
-export const Route = createFileRoute("/qr-visa/_qrLayout/")({
+export const Route = createFileRoute("/$moduleId/_moduleLayout/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { enterpriseData } = qrLayoutRoute.useLoaderData();
-
+  const { enterpriseData } = Route.useRouteContext();
   return (
     <QrVisaEntry
       brand={enterpriseData.brand}

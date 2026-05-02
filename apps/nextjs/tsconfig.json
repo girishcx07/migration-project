@@ -5,7 +5,8 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"],
-      "@acme/ui/*": ["../../packages/ui/src/*"]
+      "@acme/ui/*": ["../../packages/ui/src/*"],
+      "@acme/shared-ui/*": ["../../packages/shared-ui/src/*"]
     },
     "plugins": [{ "name": "next" }]
   },

@@ -4,7 +4,7 @@ export const DOMAIN_HOST_QR = "qr-app-uat.visaero.com";
 interface GetDomainHostParams {
   domainHost: string;
   host?: string;
-  moduleType?: "evm" | "qr-visa";
+  moduleType?: "qr-visa" | "evm" | "console" | "b2b" | "enterprise";
 }
 
 const normalizeHost = ({
