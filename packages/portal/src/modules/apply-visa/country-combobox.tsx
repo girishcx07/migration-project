@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  useDeferredValue,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useDeferredValue, useMemo, useRef, useState } from "react";
 import { Check, ChevronDown, LoaderCircle, Search } from "lucide-react";
 
 import { cn } from "@repo/ui/lib/utils";
@@ -285,11 +280,7 @@ function CountryComboboxInner<T extends CountryOption>({
           }}
           type="button"
         >
-          {isLoading ? (
-            <ThreeDotLoader />
-          ) : (
-            <ChevronDown className="size-4" />
-          )}
+          {isLoading ? <ThreeDotLoader /> : <ChevronDown className="size-4" />}
         </button>
       </div>
 

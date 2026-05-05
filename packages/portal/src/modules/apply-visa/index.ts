@@ -1,6 +1,8 @@
+export * from "./apply-visa-client";
 export * from "./apply-visa-flow";
 export * from "./apply-visa-skeleton";
 export * from "./types";
+export * from "./types/apply-visa.types";
 export type {
   ApplyVisaInitialData,
   ApplyVisaSessionInput,
