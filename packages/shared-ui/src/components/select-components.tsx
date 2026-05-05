@@ -12,7 +12,7 @@ import type {
 import { components } from "react-select";
 import { ChevronDown, Search, X } from "lucide-react";
 
-import { Flag } from "@acme/shared-ui/components/flag-img";
+import { Flag } from "@repo/shared-ui/components/flag-img";
 
 export const DropdownIndicator = (props: DropdownIndicatorProps) => (
   <components.DropdownIndicator {...props}>

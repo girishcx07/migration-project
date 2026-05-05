@@ -1,0 +1,17 @@
+{
+  "extends": "@repo/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "stripInternal": true,
+    "composite": false,
+    "paths": {
+      "*": ["./*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

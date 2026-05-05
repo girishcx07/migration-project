@@ -1,4 +1,4 @@
-import { NoticeResult } from "@acme/shared-ui/lib/new-visa-utils";
+import { NoticeResult } from "@repo/shared-ui/lib/new-visa-utils";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -6,15 +6,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@acme/ui/components/alert-dialog";
-import { Button } from "@acme/ui/components/button";
+} from "@repo/ui/components/alert-dialog";
+import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@acme/ui/components/dialog";
+} from "@repo/ui/components/dialog";
 
 export const NoticeDialog = ({
   title,

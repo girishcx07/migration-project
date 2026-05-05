@@ -1,50 +1,41 @@
 {
-  "name": "@acme/api",
-  "private": true,
+  "name": "@repo/api",
+  "version": "0.0.0",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
-    },
-    "./react": {
-      "types": "./dist/react.d.ts",
-      "default": "./src/react.tsx"
-    },
-    "./caller": {
-      "types": "./dist/caller.d.ts",
-      "default": "./src/caller.ts"
-    }
-  },
-  "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "dev": "tsc",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/validators": "workspace:*",
-    "@tanstack/react-query": "catalog:",
-    "@trpc/client": "catalog:",
-    "@trpc/server": "catalog:",
-    "@trpc/tanstack-react-query": "catalog:",
-    "react": "catalog:react19",
-    "superjson": "catalog:",
-    "zod": "catalog:"
+    "@repo/types": "workspace:*"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
-    "@acme/types": "workspace:*",
+    "@ianvs/prettier-plugin-sort-imports": "catalog:",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "@types/react": "catalog:react19",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "exports": {
+    ".": "./src/index.ts",
+    "./browser": "./src/browser.ts",
+    "./client": "./src/client.ts",
+    "./fetcher": "./src/fetcher.ts",
+    "./services": "./src/services.ts",
+    "./routes/base-api": "./src/routes/base-api.ts",
+    "./routes/data-sim": "./src/routes/data-sim.ts",
+    "./routes/evm": "./src/routes/evm.ts",
+    "./routes/new-visa": "./src/routes/new-visa.ts",
+    "./routes/qr-visa": "./src/routes/qr-visa.ts",
+    "./routes/review-visa": "./src/routes/review-visa.ts",
+    "./routes/track-visa-application": "./src/routes/track-visa-application.ts",
+    "./routes/visa-payment-summary": "./src/routes/visa-payment-summary.ts"
+  },
+  "prettier": "@repo/prettier-config"
 }

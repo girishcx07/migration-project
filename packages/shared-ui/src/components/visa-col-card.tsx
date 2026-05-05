@@ -1,4 +1,4 @@
-import { cn } from "@acme/ui/lib/utils";
+import { cn } from "@repo/ui/lib/utils";
 
 type VisaColCardProps = {
   title: string;

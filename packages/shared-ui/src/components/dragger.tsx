@@ -10,9 +10,9 @@ import {
 } from "react-dropzone";
 import { toast } from "sonner";
 
-import { Button } from "@acme/ui/components/button";
-import { Input } from "@acme/ui/components/input";
-import { cn } from "@acme/ui/lib/utils";
+import { Button } from "@repo/ui/components/button";
+import { Input } from "@repo/ui/components/input";
+import { cn } from "@repo/ui/lib/utils";
 
 interface Props {
   uploadOptions?: DropzoneOptions;

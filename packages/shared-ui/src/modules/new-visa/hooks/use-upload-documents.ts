@@ -4,8 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
-import { useTRPC } from "@acme/api/react";
-import type { UploadedDocumentFiles } from "@acme/types/new-visa";
+import { useTRPC } from "@repo/api/react";
+import type { UploadedDocumentFiles } from "@repo/types/new-visa";
 
 export function useUploadDocuments({
   onSuccess,

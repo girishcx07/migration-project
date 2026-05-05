@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { cn } from "@acme/ui/lib/utils";
+import { cn } from "@repo/ui/lib/utils";
 
 type FlagProps = React.ImgHTMLAttributes<HTMLImageElement>;
 

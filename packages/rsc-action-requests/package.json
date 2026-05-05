@@ -1,0 +1,37 @@
+{
+  "name": "@repo/rsc-action-requests",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "catalog:react19"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:react19",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./react": {
+      "types": "./src/react.ts",
+      "default": "./src/react.ts"
+    }
+  },
+  "prettier": "@repo/prettier-config"
+}

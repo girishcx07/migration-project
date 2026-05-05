@@ -1,14 +1,14 @@
 "use client";
-import { InsuranceCoverage, VisaOffer } from "@acme/types/new-visa";
+import { InsuranceCoverage, VisaOffer } from "@repo/types/new-visa";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@acme/ui/components/card";
-import { Separator } from "@acme/ui/components/separator";
-import { Skeleton } from "@acme/ui/components/skeleton";
+} from "@repo/ui/components/card";
+import { Separator } from "@repo/ui/components/separator";
+import { Skeleton } from "@repo/ui/components/skeleton";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { useVisaColumn } from "../context/visa-columns-context";

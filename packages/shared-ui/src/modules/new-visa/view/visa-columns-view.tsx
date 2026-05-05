@@ -9,16 +9,16 @@ import type {
   CreateApplicationPayload,
   VisaFees,
   VisaType as VisaTypeData,
-} from "@acme/types/new-visa";
-import { useTRPC } from "@acme/api/react";
-import { useIsMobile } from "@acme/shared-ui/hooks/use-is-mobile";
-import { getCookie } from "@acme/shared-ui/lib/cookies";
+} from "@repo/types/new-visa";
+import { useTRPC } from "@repo/api/react";
+import { useIsMobile } from "@repo/shared-ui/hooks/use-is-mobile";
+import { getCookie } from "@repo/shared-ui/lib/cookies";
 import {
   cn,
   getResponsiveWidthClass,
   getTravellingToIdentity,
   getVisaNoticeContent,
-} from "@acme/shared-ui/lib/new-visa-utils";
+} from "@repo/shared-ui/lib/new-visa-utils";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -27,8 +27,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@acme/ui/components/alert-dialog";
-import { Button } from "@acme/ui/components/button";
+} from "@repo/ui/components/alert-dialog";
+import { Button } from "@repo/ui/components/button";
 
 import { NoticeDialog, VisaNoticeDialog } from "../components/notice-dialog";
 import PriceChangeAlertDialog from "../components/price_change_alert_dialog";

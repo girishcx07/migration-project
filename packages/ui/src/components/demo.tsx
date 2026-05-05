@@ -12,18 +12,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@acme/ui/components/alert-dialog"
-import { Badge } from "@acme/ui/components/badge"
-import { Button } from "@acme/ui/components/button"
-import { ButtonGroup } from "@acme/ui/components/button-group"
+} from "@repo/ui/components/alert-dialog"
+import { Badge } from "@repo/ui/components/badge"
+import { Button } from "@repo/ui/components/button"
+import { ButtonGroup } from "@repo/ui/components/button-group"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@acme/ui/components/card"
-import { Checkbox } from "@acme/ui/components/checkbox"
+} from "@repo/ui/components/card"
+import { Checkbox } from "@repo/ui/components/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,25 +32,25 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@acme/ui/components/dropdown-menu"
-import { Field, FieldGroup } from "@acme/ui/components/field"
+} from "@repo/ui/components/dropdown-menu"
+import { Field, FieldGroup } from "@repo/ui/components/field"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "@acme/ui/components/input-group"
+} from "@repo/ui/components/input-group"
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@acme/ui/components/item"
-import { RadioGroup, RadioGroupItem } from "@acme/ui/components/radio-group"
-import { Slider } from "@acme/ui/components/slider"
-import { Switch } from "@acme/ui/components/switch"
-import { Textarea } from "@acme/ui/components/textarea"
+} from "@repo/ui/components/item"
+import { RadioGroup, RadioGroupItem } from "@repo/ui/components/radio-group"
+import { Slider } from "@repo/ui/components/slider"
+import { Switch } from "@repo/ui/components/switch"
+import { Textarea } from "@repo/ui/components/textarea"
 import { CopyIcon, CircleAlertIcon, TrashIcon, ShareIcon, ShoppingBagIcon, MoreHorizontalIcon, Loader2Icon, PlusIcon, MinusIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon, SettingsIcon, ChevronUpIcon } from "lucide-react"
 
 export function Demo() {

@@ -2,17 +2,17 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@acme/ui/components/dialog";
-import { ScrollArea } from "@acme/ui/components/scroll-area";
-import { Separator } from "@acme/ui/components/separator";
-import { getCookie } from "@acme/shared-ui/lib/cookies";
-import { getTravellingToIdentity } from "@acme/shared-ui/lib/new-visa-utils";
-import type { VisaOffer } from "@acme/types/new-visa";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@repo/ui/components/dialog";
+import { ScrollArea } from "@repo/ui/components/scroll-area";
+import { Separator } from "@repo/ui/components/separator";
+import { getCookie } from "@repo/shared-ui/lib/cookies";
+import { getTravellingToIdentity } from "@repo/shared-ui/lib/new-visa-utils";
+import type { VisaOffer } from "@repo/types/new-visa";
 import CurrencySelect from "../components/currency-select";
 import { MaxWidthContainer } from "../components/max-width-container";
 import VisaOfferCard, { VisaOfferCardSkeleton } from "../components/visa-offer-card";
 import { useVisaColumn } from "../context/visa-columns-context";
-import { useIsMobile } from "@acme/shared-ui/hooks/use-is-mobile";
+import { useIsMobile } from "@repo/shared-ui/hooks/use-is-mobile";
 import { useVisaOffers } from "../hooks/use-visa-offers";
 
 interface VisaTypeProps {

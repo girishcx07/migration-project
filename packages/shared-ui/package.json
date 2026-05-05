@@ -1,5 +1,5 @@
 {
-  "name": "@acme/shared-ui",
+  "name": "@repo/shared-ui",
   "private": true,
   "type": "module",
   "exports": {
@@ -16,9 +16,9 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@acme/api": "workspace:*",
-    "@acme/types": "workspace:*",
-    "@acme/ui": "workspace:*",
+    "@repo/api": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/ui": "workspace:*",
     "@tanstack/react-query": "catalog:",
     "clsx": "catalog:",
     "date-fns": "catalog:",
@@ -31,9 +31,9 @@
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
     "@types/react": "catalog:react19",
     "eslint": "catalog:",
     "prettier": "catalog:",
@@ -46,5 +46,5 @@
     "react": "catalog:react19",
     "zod": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@repo/prettier-config"
 }

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-import { cn } from "@acme/ui/lib/utils";
+import { cn } from "@repo/ui/lib/utils";
 
 const controlStyles = {
   base: "flex min-h-9 w-full rounded-md border border-input bg-transparent py-1 pr-1 pl-3 gap-1 text-base shadow-sm transition-colors hover:cursor-pointer md:text-sm",

@@ -1,8 +1,8 @@
 "use client";
 
-import { NoticeResult } from "@acme/shared-ui/lib/new-visa-utils";
-import { getCookie, setClientCookie } from "@acme/shared-ui/lib/cookies";
-import { UploadedDocumentFiles, VisaOffer } from "@acme/types/new-visa";
+import { NoticeResult } from "@repo/shared-ui/lib/new-visa-utils";
+import { getCookie, setClientCookie } from "@repo/shared-ui/lib/cookies";
+import { UploadedDocumentFiles, VisaOffer } from "@repo/types/new-visa";
 import { addDays } from "date-fns";
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { VisaApplicationState } from "../types";

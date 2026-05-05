@@ -1,4 +1,4 @@
-import type { Options } from "@acme/shared-ui/components/auto-select";
+import type { Options } from "@repo/shared-ui/components/auto-select";
 
 
 export type CountryOptionsList = Options<

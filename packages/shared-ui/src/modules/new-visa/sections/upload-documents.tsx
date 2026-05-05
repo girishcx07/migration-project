@@ -18,15 +18,15 @@ import type {
   Demand,
   RequiredDocument,
   UploadedDocumentImage,
-} from "@acme/types/new-visa";
-import { useTRPC } from "@acme/api/react";
-import Dragger from "@acme/shared-ui/components/dragger";
-import useCopyToClipboard from "@acme/shared-ui/hooks/use-copy-to-clipboard";
-import { useIsMobile } from "@acme/shared-ui/hooks/use-is-mobile";
+} from "@repo/types/new-visa";
+import { useTRPC } from "@repo/api/react";
+import Dragger from "@repo/shared-ui/components/dragger";
+import useCopyToClipboard from "@repo/shared-ui/hooks/use-copy-to-clipboard";
+import { useIsMobile } from "@repo/shared-ui/hooks/use-is-mobile";
 import {
   convertToJpeg,
   createDocString,
-} from "@acme/shared-ui/lib/new-visa-utils";
+} from "@repo/shared-ui/lib/new-visa-utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,9 +37,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@acme/ui/components/alert-dialog";
-import { Button } from "@acme/ui/components/button";
-import { Card, CardContent } from "@acme/ui/components/card";
+} from "@repo/ui/components/alert-dialog";
+import { Button } from "@repo/ui/components/button";
+import { Card, CardContent } from "@repo/ui/components/card";
 import {
   Dialog,
   DialogContent,
@@ -47,19 +47,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@acme/ui/components/dialog";
+} from "@repo/ui/components/dialog";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@acme/ui/components/hover-card";
-import { ScrollArea } from "@acme/ui/components/scroll-area";
-import { Skeleton } from "@acme/ui/components/skeleton";
+} from "@repo/ui/components/hover-card";
+import { ScrollArea } from "@repo/ui/components/scroll-area";
+import { Skeleton } from "@repo/ui/components/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@acme/ui/components/tooltip";
+} from "@repo/ui/components/tooltip";
 
 import { useVisaColumn } from "../context/visa-columns-context";
 import { useUploadDocuments } from "../hooks/use-upload-documents";

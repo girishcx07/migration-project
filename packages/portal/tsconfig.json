@@ -1,0 +1,22 @@
+{
+  "extends": "@repo/tsconfig/react-library.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "noEmit": false,
+    "noEmitOnError": true,
+    "stripInternal": true,
+    "composite": false,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "paths": {
+      "@repo/portal/*": ["./src/*"]
+    },
+    "types": ["node", "react", "react-dom"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}

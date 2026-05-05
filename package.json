@@ -10,8 +10,12 @@
     "build": "turbo run build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo run clean",
-    "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F @acme/nextjs...",
+    "dev": "turbo run dev --filter @repo/b2b --ui stream --log-order stream",
+    "dev:b2b": "turbo run dev --filter @repo/b2b --ui stream --log-order stream",
+    "build:b2b": "turbo run build -F @repo/b2b...",
+    "lint:b2b": "turbo run lint -F @repo/b2b...",
+    "start:b2b": "turbo run start --filter @repo/b2b --ui stream --log-order stream",
+    "typecheck:b2b": "turbo run typecheck -F @repo/b2b...",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
@@ -19,17 +23,15 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
-    "ui-add": "turbo run ui-add",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ui-add": "turbo run ui-add"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
     "@turbo/gen": "catalog:",
     "dotenv-cli": "catalog:",
     "prettier": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@repo/prettier-config"
 }

@@ -1,41 +1,30 @@
-import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-
-import type { AppRouter } from "./root";
-
-/**
- * Inference helpers for input types
- * @example
- * type PostByIdInput = RouterInputs['post']['byId']
- *      ^? { id: number }
- */
-type RouterInputs = inferRouterInputs<AppRouter>;
-
-/**
- * Inference helpers for output types
- * @example
- * type AllPostsOutput = RouterOutputs['post']['all']
- *      ^? Post[]
- */
-type RouterOutputs = inferRouterOutputs<AppRouter>;
-
-export { type AppRouter, appRouter } from "./root";
-export { createTRPCContext } from "./trpc";
-export type { RouterInputs, RouterOutputs };
-
-/**
- * This is the primary export for the API package, which includes the tRPC API client and related types.
- * You can add other exports here as needed, such as utility functions, types, etc.
- * This file serves as the main entry point for the API package, so anything that should be accessible to consumers of the API package can be exported here.
- * @example
- *  createApiClient() can be used to create a new API client instance, which can then be used to make requests to the API.
- *  The ApiResponse type can be used to type the responses from the API client, which can be either a success or a failure response.
- *  You can also export other types related to the API client, such as ApiClientContext, CreateApiClientOptions, etc.
- *  This allows consumers of the API package to have access to all the necessary types and functions for working with the API client in one place.
- **/
-
-export { createApiClient } from "./fetcher";
+export { createVisaeroApi, createVisaeroBrowserApi } from "./client";
+export { getClientIpData } from "./browser";
+export type { VisaeroApi, VisaeroBrowserApi } from "./client";
+export { createApiClient, createBrowserApiClient, ApiError } from "./fetcher";
+export type { ApiClient, ApiQuery, ApiRequestOptions } from "./fetcher";
+export { SERVICES, API_ENDPOINTS } from "./services";
+export {
+  createBaseApiRoutes,
+  getEnterpriseAccountHostDetails,
+  getUserRolePermissions,
+} from "./routes/base-api";
+export { createDataSimRoutes } from "./routes/data-sim";
+export { createEvmRoutes } from "./routes/evm";
+export { createNewVisaRoutes } from "./routes/new-visa";
+export { createQrVisaRoutes } from "./routes/qr-visa";
+export { createReviewVisaRoutes } from "./routes/review-visa";
+export { createTrackVisaApplicationRoutes } from "./routes/track-visa-application";
+export { createVisaPaymentSummaryRoutes } from "./routes/visa-payment-summary";
 export type {
-  ApiClient,
-  ApiClientContext,
-  CreateApiClientOptions,
-} from "./fetcher";
+  GetEnterpriseAccountHostDetailsInput,
+  GetUserRolePermissionsInput,
+} from "./routes/base-api";
+export type * from "./routes/data-sim";
+export type * from "./routes/evm";
+export type * from "./routes/new-visa";
+export type * from "./routes/qr-visa";
+export type * from "./routes/review-visa";
+export type * from "./routes/track-visa-application";
+export type * from "./routes/visa-payment-summary";
+export type * from "./route-utils";

@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { useTRPC } from "@acme/api/react";
+import { useTRPC } from "@repo/api/react";
 
 export function useVisaOffers(payload: {
   currency: string;

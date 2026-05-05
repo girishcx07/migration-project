@@ -4,16 +4,39 @@ import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react";
 import { CheckIcon, ChevronDownIcon, XIcon } from "lucide-react";
 
-import { Button } from "@acme/ui/components/button";
+import { Button } from "@repo/ui/components/button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@acme/ui/components/input-group";
-import { cn } from "@acme/ui/lib/utils";
+} from "@repo/ui/components/input-group";
+import { cn } from "@repo/ui/lib/utils";
 
-const Combobox = ComboboxPrimitive.Root;
+function Combobox({
+  manualFiltering: _manualFiltering,
+  ...props
+}: ComboboxPrimitive.Root.Props & {
+  manualFiltering?: boolean;
+}) {
+  return <ComboboxPrimitive.Root {...props} />;
+}
+
+function ComboboxAnchor({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="combobox-anchor"
+      className={cn(
+        "border-input focus-within:border-ring focus-within:ring-ring/50 flex h-8 w-full items-center gap-2 rounded-lg border bg-transparent px-2.5 text-sm transition-colors focus-within:ring-3",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
@@ -140,8 +163,13 @@ function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
 function ComboboxItem({
   className,
   children,
+  label: _label,
+  outset: _outset,
   ...props
-}: ComboboxPrimitive.Item.Props) {
+}: ComboboxPrimitive.Item.Props & {
+  label?: string;
+  outset?: boolean;
+}) {
   return (
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
@@ -192,14 +220,36 @@ function ComboboxCollection({ ...props }: ComboboxPrimitive.Collection.Props) {
   );
 }
 
-function ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {
+function ComboboxEmpty({
+  className,
+  keepVisible = false,
+  ...props
+}: ComboboxPrimitive.Empty.Props & {
+  keepVisible?: boolean;
+}) {
   return (
     <ComboboxPrimitive.Empty
       data-slot="combobox-empty"
       className={cn(
-        "text-muted-foreground hidden w-full justify-center py-2 text-center text-sm group-data-empty/combobox-content:flex",
+        "text-muted-foreground w-full justify-center py-2 text-center text-sm",
+        keepVisible
+          ? "flex"
+          : "hidden group-data-empty/combobox-content:flex",
         className,
       )}
+      {...props}
+    />
+  );
+}
+
+function ComboboxLoading({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="combobox-loading"
+      className={cn("px-2 py-2 text-sm", className)}
       {...props}
     />
   );
@@ -285,6 +335,7 @@ function useComboboxAnchor() {
 
 export {
   Combobox,
+  ComboboxAnchor,
   ComboboxInput,
   ComboboxContent,
   ComboboxList,
@@ -293,6 +344,7 @@ export {
   ComboboxLabel,
   ComboboxCollection,
   ComboboxEmpty,
+  ComboboxLoading,
   ComboboxSeparator,
   ComboboxChips,
   ComboboxChip,

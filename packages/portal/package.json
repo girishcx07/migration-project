@@ -1,0 +1,46 @@
+{
+  "name": "@repo/portal",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/api": "workspace:*",
+    "@repo/rsc-action-requests": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "lucide-react": "catalog:",
+    "react-dropzone": "catalog:",
+    "react-mobile-cropper": "catalog:",
+    "sonner": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./components/module-flow-skeleton": "./src/components/module-flow-skeleton.tsx",
+    "./lib/module-registry": "./src/lib/module-registry.ts",
+    "./modules/apply-visa": "./src/modules/apply-visa/index.ts",
+    "./queries/apply-visa": "./src/queries/apply-visa.ts"
+  },
+  "prettier": "@repo/prettier-config"
+}

@@ -1,15 +1,15 @@
 {
-  "name": "@acme/types",
+  "name": "@repo/types",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./src/index.ts",
       "default": "./src/index.ts"
     },
     "./*": {
-      "types": "./dist/*.d.ts",
+      "types": "./src/*.d.ts",
       "default": "./src/*.d.ts"
     }
   },
@@ -22,13 +22,13 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
     "@types/react": "catalog:react19",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@repo/prettier-config"
 }

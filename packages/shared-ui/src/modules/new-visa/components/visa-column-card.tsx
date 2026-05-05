@@ -4,8 +4,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle
-} from "@acme/ui/components/card";
-import { cn } from "@acme/ui/lib/utils";
+} from "@repo/ui/components/card";
+import { cn } from "@repo/ui/lib/utils";
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 
@@ -18,7 +18,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@acme/ui/components/alert-dialog";
+} from "@repo/ui/components/alert-dialog";
 import { useVisaColumn } from "../context/visa-columns-context";
 
 type VisaColumnCardProps = {

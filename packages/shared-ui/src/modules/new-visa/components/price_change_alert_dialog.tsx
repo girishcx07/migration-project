@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-import { useTRPC } from "@acme/api/react";
+import { useTRPC } from "@repo/api/react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,10 +12,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@acme/ui/components/alert-dialog";
-import { Checkbox } from "@acme/ui/components/checkbox";
-import { Label } from "@acme/ui/components/label";
-import { setClientCookie } from "@acme/shared-ui/lib/cookies";
+} from "@repo/ui/components/alert-dialog";
+import { Checkbox } from "@repo/ui/components/checkbox";
+import { Label } from "@repo/ui/components/label";
+import { setClientCookie } from "@repo/shared-ui/lib/cookies";
 
 export default function PriceChangeAlertDialog() {
   const trpc = useTRPC();

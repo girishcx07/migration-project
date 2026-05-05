@@ -8,7 +8,7 @@ import type {
   RequiredDocument,
   VisaOffer,
   VisaType,
-} from "@acme/types/new-visa";
+} from "@repo/types/new-visa";
 
 type CountryLike = {
   cioc?: string;

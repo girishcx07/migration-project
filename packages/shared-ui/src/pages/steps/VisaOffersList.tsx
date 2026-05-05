@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { Button } from "@acme/ui/components/button";
-import { cn } from "@acme/ui/lib/utils";
+import { Button } from "@repo/ui/components/button";
+import { cn } from "@repo/ui/lib/utils";
 
 import { useStepContext } from "../../context/StepContext";
 

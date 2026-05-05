@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@repo/api": ["../../packages/api/src/index.ts"],
+      "@repo/api/*": ["../../packages/api/src/*"],
+      "@repo/portal": ["../../packages/portal/src/index.ts"],
+      "@repo/portal/*": ["../../packages/portal/src/*"],
+      "@repo/rsc-action-requests": [
+        "../../packages/rsc-action-requests/src/index.ts"
+      ],
+      "@repo/rsc-action-requests/*": [
+        "../../packages/rsc-action-requests/src/*"
+      ],
+      "@repo/types": ["../../packages/types/src/index.d.ts"],
+      "@repo/types/*": ["../../packages/types/src/*"],
+      "@repo/ui/*": ["../../packages/ui/src/*"]
+    },
+    "types": ["vite/client", "@vitejs/plugin-rsc/types"],
+    "jsx": "react-jsx"
+  },
+  "exclude": ["node_modules", "dist", "eslint.config.ts"]
+}
