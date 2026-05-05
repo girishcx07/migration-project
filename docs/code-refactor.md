@@ -21,12 +21,16 @@ country-combobox.tsx
 index.ts
 
     components/
-      layout/
-      fields/
-      dialogs/
-      offers/
-      documents/
-      raff/
+      apply-visa-dialogs.tsx
+      doc-section.tsx
+      documents-empty-state.tsx
+      documents-panel.tsx
+      field-shell.tsx
+      max-width-container.tsx
+      raff-application-panel.tsx
+      uploaded-file-card.tsx
+      visa-column-card.tsx
+      visa-offer-card.tsx
 
     providers/
       apply-visa-provider.tsx
@@ -104,6 +108,7 @@ Keep existing exports stable through index.ts and avoid breaking imports during 
   - cookie read/write helpers
   - notice content helpers
 - Move UI blocks into components:
+  - keep component files directly under components/ rather than grouping by functionality subfolders
   - VisaColumnCard
   - FieldShell
   - MaxWidthContainer

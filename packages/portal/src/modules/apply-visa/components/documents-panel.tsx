@@ -23,16 +23,16 @@ import { ScrollArea } from "@repo/ui/components/scroll-area";
 import { Skeleton } from "@repo/ui/components/skeleton";
 import { cn } from "@repo/ui/lib/utils";
 
-import type { ApplyVisaActions } from "../../types";
-import type { VisaDocument } from "../../types/apply-visa.types";
-import { DocumentDragger } from "../../../../components/document-dragger";
-import { MobileDocumentEditor } from "../../../../components/mobile-document-editor";
+import type { ApplyVisaActions } from "../types";
+import type { VisaDocument } from "../types/apply-visa.types";
+import { DocumentDragger } from "../../../components/document-dragger";
+import { MobileDocumentEditor } from "../../../components/mobile-document-editor";
 import {
   DOCUMENT_DROPZONE_ACCEPT,
   DOCUMENT_UPLOAD_REQUIREMENTS,
   MAX_DOCUMENT_UPLOAD_SIZE,
-} from "../../constants/document-upload.constants";
-import { getAdditionalDocuments } from "../../utils/document.utils";
+} from "../constants/document-upload.constants";
+import { getAdditionalDocuments } from "../utils/document.utils";
 import { DocSection } from "./doc-section";
 import { DocumentsEmptyState } from "./documents-empty-state";
 import { UploadedFileCard } from "./uploaded-file-card";

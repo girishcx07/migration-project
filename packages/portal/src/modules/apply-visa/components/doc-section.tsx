@@ -1,6 +1,6 @@
 import { Info } from "lucide-react";
 
-import type { VisaDocument } from "../../types/apply-visa.types";
+import type { VisaDocument } from "../types/apply-visa.types";
 
 export function DocSection<T extends VisaDocument>({
   documents,

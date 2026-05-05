@@ -24,13 +24,13 @@ import {
   PriceChangeAlertDialog,
   ResetColumnDialog,
   VisaNoticeDialog,
-} from "./components/dialogs/apply-visa-dialogs";
-import { DocumentsPanel } from "./components/documents/documents-panel";
-import { FieldShell } from "./components/fields/field-shell";
-import { MaxWidthContainer } from "./components/layout/max-width-container";
-import { VisaColumnCard } from "./components/layout/visa-column-card";
-import { VisaOfferCard } from "./components/offers/visa-offer-card";
-import { RaffApplicationPanel } from "./components/raff/raff-application-panel";
+} from "./components/apply-visa-dialogs";
+import { DocumentsPanel } from "./components/documents-panel";
+import { FieldShell } from "./components/field-shell";
+import { MaxWidthContainer } from "./components/max-width-container";
+import { RaffApplicationPanel } from "./components/raff-application-panel";
+import { VisaColumnCard } from "./components/visa-column-card";
+import { VisaOfferCard } from "./components/visa-offer-card";
 import { CountryCombobox } from "./country-combobox";
 import { useApplyVisaContext } from "./hooks/use-apply-visa-context";
 import { ApplyVisaProvider } from "./providers/apply-visa-provider";

@@ -21,7 +21,7 @@ import {
 import { ScrollArea } from "@repo/ui/components/scroll-area";
 import { Separator } from "@repo/ui/components/separator";
 
-import type { CommonNotice, NoticeResult } from "../../types/apply-visa.types";
+import type { CommonNotice, NoticeResult } from "../types/apply-visa.types";
 
 export function DestinationNoticeDialog({
   notice,

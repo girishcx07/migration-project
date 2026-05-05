@@ -1,6 +1,6 @@
 import { Label } from "@repo/ui/components/label";
 
-import { MaxWidthContainer } from "../layout/max-width-container";
+import { MaxWidthContainer } from "./max-width-container";
 
 export function FieldShell({
   children,
