@@ -2,6 +2,7 @@
   "extends": "@repo/tsconfig/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "declaration": true,
     "emitDeclarationOnly": false,
     "noEmit": false,
@@ -10,9 +11,6 @@
     "composite": false,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "paths": {
-      "@repo/types*": ["../types/src*"]
-    },
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
