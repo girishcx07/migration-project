@@ -2,9 +2,9 @@
 
 import type { ModuleName } from "@/lib/module-registry";
 import { useEffect } from "react";
+import InitializingLoader from "@/components/initializing-loader";
 import { useNavigate, useSearchParams } from "react-router";
 
-import InitializingLoader from "@/components/initializing-loader";
 import { initializeModuleSession } from "./actions";
 
 function setClientCookie(name: string, value: string | null) {
@@ -27,27 +27,14 @@ export function ModuleInitializeClient({ module }: { module: ModuleName }) {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    let cancelled = false;
-    const getParam = (...names: string[]) => {
-      for (const name of names) {
-        const value = searchParams.get(name)?.trim();
-
-        if (value) return value;
-      }
-
-      return undefined;
-    };
-
     async function initialize() {
       const result = await initializeModuleSession({
-        evmRequestId: getParam("evm_request_id", "evmRequestId"),
-        host: getParam("host"),
+        evmRequestId: searchParams.get("evm_request_id")?.trim(),
+        host: searchParams.get("host")?.trim(),
         module,
-        sessionId: getParam("session_id", "sessionId"),
-        userId: getParam("user_id", "userId"),
+        sessionId: searchParams.get("session_id")?.trim(),
+        userId: searchParams.get("user_id")?.trim(),
       });
-
-      if (cancelled) return;
 
       Object.entries(result.cookies).forEach(([name, value]) => {
         setClientCookie(name, value);
@@ -57,11 +44,7 @@ export function ModuleInitializeClient({ module }: { module: ModuleName }) {
     }
 
     void initialize();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [module, navigate, searchParams]);
+  }, [searchParams]);
 
   return (
     <InitializingLoader
