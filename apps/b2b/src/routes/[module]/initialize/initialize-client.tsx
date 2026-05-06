@@ -3,7 +3,7 @@
 import type { ModuleName } from "@/lib/module-registry";
 import { useEffect } from "react";
 import InitializingLoader from "@/components/initializing-loader";
-import { useNavigate, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 import { initializeModuleSession } from "./actions";
 
@@ -23,28 +23,52 @@ function setClientCookie(name: string, value: string | null) {
 }
 
 export function ModuleInitializeClient({ module }: { module: ModuleName }) {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    let cancelled = false;
+    const getParam = (...names: string[]) => {
+      for (const name of names) {
+        const value = searchParams.get(name)?.trim();
+
+        if (value) return value;
+      }
+
+      return undefined;
+    };
+
     async function initialize() {
-      const result = await initializeModuleSession({
-        evmRequestId: searchParams.get("evm_request_id")?.trim(),
-        host: searchParams.get("host")?.trim(),
-        module,
-        sessionId: searchParams.get("session_id")?.trim(),
-        userId: searchParams.get("user_id")?.trim(),
-      });
+      try {
+        const result = await initializeModuleSession({
+          evmRequestId: getParam("evm_request_id", "evmRequestId"),
+          host: getParam("host"),
+          module,
+          sessionId: getParam("session_id", "sessionId"),
+          userId: getParam("user_id", "userId"),
+        });
 
-      Object.entries(result.cookies).forEach(([name, value]) => {
-        setClientCookie(name, value);
-      });
+        if (cancelled) return;
 
-      void navigate(result.redirect, { replace: true });
+        Object.entries(result.cookies).forEach(([name, value]) => {
+          setClientCookie(name, value);
+        });
+
+        window.location.replace(result.redirect);
+      } catch (error) {
+        console.warn("Module initialization action failed:", error);
+
+        if (!cancelled) {
+          window.location.replace(`/${module}/unauthorized`);
+        }
+      }
     }
 
     void initialize();
-  }, [searchParams]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [module, searchParams]);
 
   return (
     <InitializingLoader

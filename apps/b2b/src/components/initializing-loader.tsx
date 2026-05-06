@@ -9,6 +9,7 @@ interface InitializingLoaderProps {
 
 export default function InitializingLoader({
   message = "Initializing application...",
+  subMessage,
 }: InitializingLoaderProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -21,7 +22,7 @@ export default function InitializingLoader({
       </div>
 
       <motion.div
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+        initial={false}
         animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         transition={
           shouldReduceMotion
@@ -102,6 +103,9 @@ export default function InitializingLoader({
           >
             {message}
           </motion.p>
+          {subMessage ? (
+            <p className="text-muted-foreground text-xs">{subMessage}</p>
+          ) : null}
 
           <div className="flex items-center gap-1.5">
             {[0, 1, 2].map((i) => (
