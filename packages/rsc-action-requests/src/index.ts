@@ -25,13 +25,8 @@ export interface RscActionRequestManager {
   cancelAll(reason?: unknown): number;
 }
 
-let fallbackRequestId = 0;
-
 function createRequestId() {
-  return (
-    globalThis.crypto?.randomUUID?.() ??
-    `rsc-action-request-${++fallbackRequestId}`
-  );
+  return globalThis.crypto.randomUUID();
 }
 
 function createAbortReason(message: string) {
@@ -40,8 +35,8 @@ function createAbortReason(message: string) {
     : new Error(message);
 }
 
-function getSignalReason(signal: AbortSignal) {
-  return "reason" in signal ? signal.reason : undefined;
+function getSignalReason(signal: AbortSignal): unknown {
+  return signal.reason as unknown;
 }
 
 function abortController(controller: AbortController, reason?: unknown) {

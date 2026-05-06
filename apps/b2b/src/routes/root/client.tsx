@@ -1,8 +1,8 @@
 "use client";
 
-import { isRouteErrorResponse, useRouteError } from "react-router";
-
+import { EmbedLifecycleBridge } from "@/components/embed-lifecycle-bridge";
 import { Toaster } from "@/components/toaster";
+import { isRouteErrorResponse, useRouteError } from "react-router";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,6 +23,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body className="bg-background text-foreground font-sans antialiased">
+        <EmbedLifecycleBridge />
         {children}
         <Toaster closeButton position="top-right" />
       </body>

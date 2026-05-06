@@ -13,6 +13,11 @@ export function routes() {
           lazy: () => import("./home/route"),
         },
         {
+          id: "sandbox",
+          path: "sandbox",
+          lazy: () => import("./sandbox/route"),
+        },
+        {
           id: "module",
           path: ":module",
           lazy: () => import("./[module]/route"),

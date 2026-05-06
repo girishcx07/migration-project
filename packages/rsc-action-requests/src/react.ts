@@ -2,18 +2,16 @@
 
 import { useSyncExternalStore } from "react";
 
-import {
-  rscActionRequests,
-  type PendingRscActionRequest,
-} from "./index";
+import type { PendingRscActionRequest } from "./index";
+import { rscActionRequests } from "./index";
 
 const EMPTY_PENDING_REQUESTS: readonly PendingRscActionRequest[] =
   Object.freeze([]);
 
 export function usePendingRscActionRequests() {
   return useSyncExternalStore(
-    rscActionRequests.subscribe,
-    rscActionRequests.getPending,
+    (listener) => rscActionRequests.subscribe(listener),
+    () => rscActionRequests.getPending(),
     () => EMPTY_PENDING_REQUESTS,
   );
 }

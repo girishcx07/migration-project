@@ -13,19 +13,16 @@ import {
 } from "@repo/ui/components/input-group";
 import { cn } from "@repo/ui/lib/utils";
 
-function Combobox({
+function Combobox<Value, Multiple extends boolean | undefined = false>({
   manualFiltering: _manualFiltering,
   ...props
-}: ComboboxPrimitive.Root.Props & {
+}: ComboboxPrimitive.Root.Props<Value, Multiple> & {
   manualFiltering?: boolean;
 }) {
   return <ComboboxPrimitive.Root {...props} />;
 }
 
-function ComboboxAnchor({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function ComboboxAnchor({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="combobox-anchor"
@@ -232,9 +229,7 @@ function ComboboxEmpty({
       data-slot="combobox-empty"
       className={cn(
         "text-muted-foreground w-full justify-center py-2 text-center text-sm",
-        keepVisible
-          ? "flex"
-          : "hidden group-data-empty/combobox-content:flex",
+        keepVisible ? "flex" : "hidden group-data-empty/combobox-content:flex",
         className,
       )}
       {...props}
@@ -242,10 +237,7 @@ function ComboboxEmpty({
   );
 }
 
-function ComboboxLoading({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function ComboboxLoading({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="combobox-loading"

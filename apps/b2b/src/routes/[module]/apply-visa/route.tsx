@@ -1,5 +1,10 @@
 import type { ModuleName } from "@/lib/module-registry";
-import { Suspense } from "react";
+import { ModuleProviders } from "@/components/module-providers";
+import { createEnterpriseThemeCss } from "@/lib/theme";
+import { getApplyVisaData } from "@/server/apply-visa";
+import { getEnterpriseDataForModule } from "@/server/enterprise";
+import { getModuleBootstrap } from "@/server/module-bootstrap";
+import { getModuleFromPath } from "@/server/route-params";
 import { redirect } from "react-router";
 
 import {
@@ -7,12 +12,6 @@ import {
   ApplyVisaSkeleton,
 } from "@repo/portal/modules/apply-visa";
 
-import { ModuleProviders } from "@/components/module-providers";
-import { createEnterpriseThemeCss } from "@/lib/theme";
-import { getApplyVisaData } from "@/server/apply-visa";
-import { getEnterpriseDataForModule } from "@/server/enterprise";
-import { getModuleBootstrap } from "@/server/module-bootstrap";
-import { getModuleFromPath } from "@/server/route-params";
 import {
   acknowledgeApplyVisaPriceChangeAction,
   createApplyVisaApplicationAction,
@@ -23,14 +22,10 @@ import {
   uploadApplyVisaDocumentAction,
 } from "./actions";
 
-export default function Component() {
+export default async function Component() {
   const module = getModuleFromPath();
 
-  return (
-    <Suspense fallback={<ApplyVisaSkeleton />}>
-      <ApplyVisaRouteContent module={module} />
-    </Suspense>
-  );
+  return <ApplyVisaRouteContent module={module} />;
 }
 
 export function HydrateFallback() {
@@ -55,7 +50,7 @@ async function ApplyVisaRouteContent({
   return (
     <ModuleProviders
       domainHost={enterprise.domainHost}
-      enterprise={enterprise.data}
+      enterprise={enterprise.data ?? null}
       module={module}
     >
       {themeCss ? (
