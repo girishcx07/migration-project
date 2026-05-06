@@ -33,7 +33,8 @@
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-router": "catalog:",
-    "sonner": "catalog:"
+    "sonner": "catalog:",
+    "tw-animate-css": "catalog:"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
